@@ -1,0 +1,190 @@
+/*Table body light silver*/
+tbody.light-silver {
+    background-color: rgb(235, 235, 235);
+}
+
+/*Active option*/
+div.active {
+    background-color: #FA8072 !important;
+}
+
+/*Button hover and table header*/
+button:hover, thead.table-header {
+    background-color: #FA8072;
+}
+
+/*Table body silver*/
+tbody.silver {
+    background-color: silver;
+}
+
+/*Header label color*/
+div.header-title > label {
+    color: white !important;
+}
+
+/*Active option label*/
+div.active > label {
+    color: #fff !important;
+}
+
+/*Inputs focus*/
+input:focus, select:focus {
+    border-color: #FFA07A;
+}
+
+/*Menu options container*/
+div.menu-options {
+    padding-bottom: 15px;
+}
+
+/*UI controls*/
+div.ui-controls {
+    padding: 20px;
+}
+
+/*Table columns labels*/
+thead.table-header th > label {
+    color: #fff;
+}
+
+/*Inputs placeholder*/
+input::placeholder, textarea::placeholder {
+    color: rgb(150, 150, 150);
+    font-style: italic;
+}
+
+/*Table columns and rows*/
+thead.table-header th, tbody.table-body td {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+/*Options*/
+div.option {
+    padding: 15px 0 15px 25px;
+    cursor: pointer;
+}
+
+/*Empty section*/
+div.empty-section {
+    background-color: #ccc;
+    height: 100%;
+}
+
+/*Option label hover*/
+div.option:hover > label {
+    cursor: pointer;
+    color: #fff;
+}
+
+/*Options hover*/
+div.option:hover {
+    border-bottom: 1px solid #fff;
+    border-top: 1px solid #fff;
+    background-color: #FA8072;
+}
+
+/*Page data*/
+div.page-data {
+    border-top-right-radius: 5px;
+    background-color: #fff;
+    width: 100%;
+}
+
+/*Dropdowns*/
+select {
+    background-color: #fff;
+    padding-left: 5px;
+    height: 35px;
+}
+
+/*Textarea*/
+textarea {
+    padding-top: 10px;
+    height: 96px;
+    resize: none;
+}
+
+/*Body*/
+body {
+    background-color: #ccc;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+/*Table data*/
+table.table-data {
+    border: 1px solid #fff;
+    margin-left: -2.5px;
+    text-align: center;
+    width: 100.5%;
+}
+
+/*Label design*/
+label, button, input::placeholder, select, textarea::placeholder {
+    font-family: sans-serif;
+    letter-spacing: 1.5px;
+    user-select: none;
+    color: #343434;
+    font-size: 16px;
+}
+
+/*Header title*/
+div.header-title {
+    border-top-right-radius: 5px;
+    background-color: #E9967A;
+    padding-bottom: 10px;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 18px;
+}
+
+/*Slider menu*/
+div.menu-bar {
+    border-top-left-radius: 5px;
+    background-color: #fff;
+    flex-direction: column;
+    padding-top: 15px;
+    display: flex;
+    height: auto;
+    width: 23.5%;
+}
+
+/*Big container*/
+div.big-container {
+    display: inline-flex;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    left: 10px;
+    gap: 10px;
+    top: 10px;
+}
+
+/*Inputs*/
+input, select, textarea {
+    border: 1px solid silver;
+    padding-right: 15px;
+    border-radius: 3px;
+    padding-left: 15px;
+    margin-top: 10px;
+    outline: none;
+    height: 40px;
+    width: 100%;
+}
+
+/*Button design*/
+button {
+    background-color: #FFA07A;
+    padding-bottom: 8px;
+    border-radius: 3px;
+    padding-top: 8px;
+    margin-top: 16px;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    border: none;
+    width: 100%;
+}

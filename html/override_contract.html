@@ -1,0 +1,86 @@
+<!--Global override contract page-->
+<html lang = "fr" dir = "ltr">
+    <!--Override contract page header-->
+    <head>
+        <!--Defined page charset: UTF-8-->
+        <meta charset = "utf-8" name = "viewport" content = "width=device-with, initial-scale=1.0"/>
+        <!--Loading the page style, and title-->
+        <link rel = "stylesheet" href = "../css/generic.css"/><title>Renouveler un contrat</title>
+    </head>
+    <!--Page body content-->
+    <body>
+        <!--Big container-->
+        <div class = "big-container">
+            <!--Slider menu container-->
+            <div class = "menu-bar">
+                <!--Menu options-->
+                <div class = "menu-options">
+                    <!--Stop contract option-->
+                    <div class = "stop-contract option" title = "Arrêter un employé sous contrat."><label>Arrêter un contrat</label></div>
+                    <!--Running contracts option-->
+                    <div class = "running-contracts option" title = "Consulter la liste de(s) contrat(s) en cours."><label>Contrat(s) en cours</label></div>
+                    <!--Expired contracts option-->
+                    <div class = "expired-contracts option" title = "Consulter la liste de(s) contrat(s) terminé(s)."><label>Contrat(s) terminé(s)</label></div>
+                    <!--Adds a contract option-->
+                    <div class = "add-contract option" title = "Enregistrer un contrat."><label>Enregistrer un contrat</label></div>
+                    <!--Adds a mistake option-->
+                    <div class = "add-mistake option" title = "Signaler une faute."><label>Enregistrer une faute</label></div>
+                    <!--Bad employees option-->
+                    <div class = "bad-employees option" title = "Consulter la liste de(s) employé(s) fautif."><label>Employé(s) fautif</label></div>
+                    <!--Busy employees option-->
+                    <div class = "busy-employees option" title = "Consulter la liste de(s) employé(s) sous un contrat.">
+                        <label>Employé(s) sous contrat</label>
+                    </div>
+                    <!--Employee mistakes option-->
+                    <div class = "employee-mistakes option" title = "Consulter le(s) faute(s) comise par un employé donné.">
+                        <label>Faute(s) d'un employé</label>
+                    </div>
+                    <!--Override contract option-->
+                    <div class = "override-contract option active" title = "Renouveler un contrat arrivé à échéance."><label>Renouveler un contrat</label></div>
+                    <!--Log out option-->
+                    <div class = "logout option" title = "Se déconnecter maintenant du système."><label>Déconnexion</label></div>
+                <!--Delusion-->
+                </div><div class = "empty-section"></div>
+            </div>
+            <!--Page data-->
+            <div class = "page-data">
+                <!--Header title-->
+                <div class = "header-title"><label><strong>Renouveler un contrat</strong></label></div>
+                <!--Page content-->
+                <div class = "page-content">
+                    <!--UI controls container-->
+                    <div class = "ui-controls">
+                        <!--Expired contracts-->
+                        <div>
+                            <!--Expired employees label text-->
+                            <label>Employé(s) ayant terminé(s) leur contrat:</label><br/>
+                            <!--Default dropdown value-->
+                            <select id = "dropdown" title = "Selectionnez un employé."><option value = "-1" selected>Aucun</option></select>
+                        </div><br/>
+                        <!--Start date-->
+                        <div>
+                            <label>Date d'embauche:</label><br/>
+                            <input id = "sdate" type = "date" placeholder = "Date d'embauche" title = "Renseignez la date d'embauche."/>
+                        </div><br/>
+                        <!--End date-->
+                        <div>
+                            <label>Date de fin:</label><br/>
+                            <input id = "edate" type = "date" placeholder = "Date de fin" title = "Mettez la date de fin."/></div><br/>
+                        <!--Time-->
+                        <div>
+                            <!--Time input field-->
+                            <label>Durée:</label><br/>
+                            <input id = "time" type = "number" min = '0' value = '0' placeholder = "Durrée du contrat" title = "Précisez la durée du contrat."/>
+                        <!--Override contrat button-->
+                        </div><button id = "override-contract-btn" title = "Renouveler ce contrat.">Renouveler</button>
+                    <!--Delusion-->
+                    </div><div class = "empty-section"></div>
+                </div>
+            </div>
+        </div>
+        <!--Dependencies and controllers-->
+        <script type = "text/javascript" src = "../js/basics_tools.js"></script>
+        <script type = "text/javascript" src = "../js/jquery.js"></script>
+        <script type = "text/javascript" src = "../js/generic.js"></script>
+        <script type = "text/javascript" src = "../js/override_contract.js"></script>
+    </body>
