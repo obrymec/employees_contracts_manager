@@ -17,7 +17,6 @@ This is the final result of the project:<br/><br/>
 [![Watch the video](https://img.youtube.com/vi/MCtNSq67pv8/maxresdefault.jpg)](https://youtu.be/MCtNSq67pv8)
 
 ## Project installation
-
 ### <u>Install curl</u>:
 ```sh
 sudo apt install curl
@@ -25,16 +24,10 @@ sudo apt install curl
 
 ### <u>Install nodejs</u>:
 ```sh
-cd ~
-curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh
-```
-```sh
-sudo bash /tmp/nodesource_setup.sh
-```
-```sh
-sudo apt install nodejs
-```
-```sh
+cd ~;\
+curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh;\
+sudo bash /tmp/nodesource_setup.sh;\
+sudo apt install nodejs;\
 node -v
 ```
 
