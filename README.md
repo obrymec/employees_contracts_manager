@@ -10,7 +10,7 @@
 ![](https://img.shields.io/badge/css-%203-lightgrey)
 ![](https://img.shields.io/badge/html-%205-blue)
 
-This small project is an academy project. It was developed with Native Web Development Languages. The project is subdivided in two parts such as: Front-end and Back-end. In Front-end, i build all user interfaces using basic HTML and CSS to draw layouts, controls and JavaScript to make some feedback with users and HTTP requests to Back-end via Node.js. In Back-end, a simple Node.js API is developed to get and treat client requests. Express.js is used as a server to run this project. Note that each data is stored in a remote MySQL (PHP My Admin) database hosted on Internet. The communication between Front-end and Back-end uses AJAX and data transfer uses JSON language. Sometime, a page reloading is required to make certain HTTP requests.
+This small project is an academy project. It was developed with Native Web Development Languages. The project is subdivided in two parts such as: Front-end and Back-end. In Front-end, I've built all user interfaces using basic HTML and CSS to draw layouts, controls and JavaScript to make some feedback with users and HTTP requests to Back-end via Node.js. In Back-end, a simple Node.js API is developed to get and treat client requests. Express.js is used as a server to run this project. Note that each data is stored in a remote MySQL (PHP My Admin) database hosted on Internet. The communication between Front-end and Back-end uses AJAX and data transfer uses JSON language. Sometime, a page reloading is required to make certain HTTP requests.
 
 ## Final result
 This is the final result of the project:<br/><br/>
