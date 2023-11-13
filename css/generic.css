@@ -1,57 +1,76 @@
-/*Table body light silver*/
-tbody.light-silver {
-    background-color: rgb(235, 235, 235);
+/**
+* @project: Employees Contracts - https://employees-contracts-manager.onrender.com/
+* @fileoverview: The main stylesheet of application.
+* @author: Obrymec - obrymecsprinces@gmail.com
+* @supported: DESKTOP, MOBILE
+* @created: 2022-02-03
+* @updated: 2023-11-12
+* @file: generic.css
+* @version: 0.0.3
+*/
+
+/* Colors theme */
+:root {
+	--light-white: rgb(235, 235, 235);
+	--primary-color: #FA8072;
+	--silver: silver;
+	--white: #FFF;
 }
 
-/*Active option*/
+/* Active option */
 div.active {
-    background-color: #FA8072 !important;
+	background-color: var(--primary-color) !important;
 }
 
-/*Button hover and table header*/
+/* Button hover and table header */
 button:hover, thead.table-header {
-    background-color: #FA8072;
+	background-color: var(--primary-color);
 }
 
-/*Table body silver*/
-tbody.silver {
-    background-color: silver;
+/* Table body light silver */
+tbody.light-silver {
+  background-color: var(--light-white);
 }
 
-/*Header label color*/
-div.header-title > label {
-    color: white !important;
-}
-
-/*Active option label*/
-div.active > label {
-    color: #fff !important;
-}
-
-/*Inputs focus*/
+/* Inputs focus */
 input:focus, select:focus {
-    border-color: #FFA07A;
+	border-color: var(--primary-color);
 }
 
-/*Menu options container*/
+/* Table body silver */
+tbody.silver {
+  background-color: var(--silver);
+}
+
+/* Header label color */
+div.header-title > label {
+	color: var(--white) !important;
+}
+
+/* Active option label */
+div.active > label {
+  color: var(--white) !important;
+}
+
+/* Menu options container */
 div.menu-options {
-    padding-bottom: 15px;
+  padding-bottom: 15px;
 }
 
-/*UI controls*/
-div.ui-controls {
-    padding: 20px;
-}
-
-/*Table columns labels*/
+/* Table columns labels */
 thead.table-header th > label {
-    color: #fff;
+	color: var(--white);
 }
 
-/*Inputs placeholder*/
+/* UI controls */
+div.ui-controls {
+  padding: 20px;
+}
+
+/* Inputs placeholder */
 input::placeholder, textarea::placeholder {
-    color: rgb(150, 150, 150);
-    font-style: italic;
+	color: rgb(150, 150, 150);
+	font-style: italic;
 }
 
 /*Table columns and rows*/
