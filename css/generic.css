@@ -2,17 +2,20 @@
 * @project: Employees Contracts - https://employees-contracts-manager.onrender.com/
 * @fileoverview: The main stylesheet of application.
 * @author: Obrymec - obrymecsprinces@gmail.com
-* @supported: DESKTOP, MOBILE
 * @created: 2022-02-03
-* @updated: 2023-11-12
+* @updated: 2023-11-19
+* @supported: DESKTOP
 * @file: generic.css
 * @version: 0.0.3
 */
 
 /* Colors theme */
 :root {
+	--light-silver: rgb(150, 150, 150);
 	--light-white: rgb(235, 235, 235);
 	--primary-color: #FA8072;
+	--black-500: #343434;
+	--silver-500: #ccc;
 	--silver: silver;
 	--white: #FFF;
 }
@@ -23,7 +26,7 @@ div.active {
 }
 
 /* Button hover and table header */
-button:hover, thead.table-header {
+thead.table-header, button:hover {
 	background-color: var(--primary-color);
 }
 
@@ -43,12 +46,12 @@ tbody.silver {
 }
 
 /* Header label color */
-div.header-title > label {
+div.header-title > span {
 	color: var(--white) !important;
 }
 
 /* Active option label */
-div.active > label {
+div.active > span {
   color: var(--white) !important;
 }
 
@@ -58,7 +61,7 @@ div.menu-options {
 }
 
 /* Table columns labels */
-thead.table-header th > label {
+thead.table-header th > span {
 	color: var(--white);
 }
 
@@ -67,143 +70,147 @@ div.ui-controls {
   padding: 20px;
 }
 
+/* Empty section */
+div.empty-section {
+	background-color: var(--silver-500);
+	height: 100%;
+}
+
 /* Inputs placeholder */
-input::placeholder, textarea::placeholder {
-	color: rgb(150, 150, 150);
+textarea::placeholder,
+input::placeholder {
+	color: var(--light-silver);
 	font-style: italic;
 }
 
-/*Table columns and rows*/
-thead.table-header th, tbody.table-body td {
-    padding-bottom: 10px;
-    padding-top: 10px;
+/* Table columns and rows */
+thead.table-header th,
+tbody.table-body td {
+	padding-bottom: 10px;
+	padding-top: 10px;
 }
 
-/*Options*/
+/* Options */
 div.option {
-    padding: 15px 0 15px 25px;
-    cursor: pointer;
+	padding: 15px 0 15px 25px;
+	cursor: pointer;
 }
 
-/*Empty section*/
-div.empty-section {
-    background-color: #ccc;
-    height: 100%;
+/* Option label hover */
+div.option:hover > span {
+	color: var(--white);
+	cursor: pointer;
 }
 
-/*Option label hover*/
-div.option:hover > label {
-    cursor: pointer;
-    color: #fff;
-}
-
-/*Options hover*/
+/* Options hover */
 div.option:hover {
-    border-bottom: 1px solid #fff;
-    border-top: 1px solid #fff;
-    background-color: #FA8072;
+	background-color: var(--primary-color);
+	border-bottom: 1px solid var(--white);
+	border-top: 1px solid var(--white);
 }
 
-/*Page data*/
+/* Page data */
 div.page-data {
-    border-top-right-radius: 5px;
-    background-color: #fff;
-    width: 100%;
+	background-color: var(--white);
+	border-top-right-radius: 5px;
+	width: 100%;
 }
 
-/*Dropdowns*/
+/* Dropdowns */
 select {
-    background-color: #fff;
-    padding-left: 5px;
-    height: 35px;
+	background-color: var(--white);
+	padding-left: 5px;
+	height: 35px;
 }
 
-/*Textarea*/
+/* Textarea */
 textarea {
-    padding-top: 10px;
-    height: 96px;
-    resize: none;
+	padding-top: 10px;
+	height: 96px;
+	resize: none;
 }
 
-/*Body*/
+/* Body */
 body {
-    background-color: #ccc;
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+	background-color: var(--silver-500);
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
 }
 
-/*Table data*/
+/* Table data */
 table.table-data {
-    border: 1px solid #fff;
-    margin-left: -2.5px;
-    text-align: center;
-    width: 100.5%;
+	border: 1px solid var(--white);
+	margin-left: -2.5px;
+	text-align: center;
+	width: 100.5%;
 }
 
-/*Label design*/
-label, button, input::placeholder, select, textarea::placeholder {
-    font-family: sans-serif;
-    letter-spacing: 1.5px;
-    user-select: none;
-    color: #343434;
-    font-size: 16px;
+/* Text design */
+textarea::placeholder,
+span, button, select,
+input::placeholder {
+	font-family: sans-serif;
+	color: var(--black-500);
+	letter-spacing: 1.5px;
+	user-select: none;
+	font-size: 16px;
 }
 
-/*Header title*/
+/* Header title */
 div.header-title {
-    border-top-right-radius: 5px;
-    background-color: #E9967A;
-    padding-bottom: 10px;
-    text-align: center;
-    padding-top: 10px;
-    font-size: 18px;
+	background-color: var(--primary-color);
+	border-top-right-radius: 5px;
+	padding-bottom: 10px;
+	text-align: center;
+	padding-top: 10px;
+	font-size: 18px;
 }
 
-/*Slider menu*/
+/* Slider menu */
 div.menu-bar {
-    border-top-left-radius: 5px;
-    background-color: #fff;
-    flex-direction: column;
-    padding-top: 15px;
-    display: flex;
-    height: auto;
-    width: 23.5%;
+	background-color: var(--white);
+	border-top-left-radius: 5px;
+	flex-direction: column;
+	padding-top: 15px;
+	display: flex;
+	height: auto;
+	width: 23.5%;
 }
 
-/*Big container*/
+/* Big container */
 div.big-container {
-    display: inline-flex;
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    left: 10px;
-    gap: 10px;
-    top: 10px;
+	display: inline-flex;
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+	left: 10px;
+	gap: 10px;
+	top: 10px;
 }
 
-/*Inputs*/
+/* Inputs */
 input, select, textarea {
-    border: 1px solid silver;
-    padding-right: 15px;
-    border-radius: 3px;
-    padding-left: 15px;
-    margin-top: 10px;
-    outline: none;
-    height: 40px;
-    width: 100%;
+	border: 1px solid var(--silver);
+	padding-right: 15px;
+	border-radius: 3px;
+	padding-left: 15px;
+	margin-top: 10px;
+	outline: none;
+	height: 40px;
+	width: 100%;
 }
 
-/*Button design*/
+/* Button design */
 button {
-    background-color: #FFA07A;
-    padding-bottom: 8px;
-    border-radius: 3px;
-    padding-top: 8px;
-    margin-top: 16px;
-    cursor: pointer;
-    outline: none;
-    color: #fff;
-    border: none;
-    width: 100%;
+	background-color: var(--primary-color);
+	padding-bottom: 8px;
+	color: var(--white);
+	border-radius: 3px;
+	padding-top: 8px;
+	margin-top: 16px;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	width: 100%;
 }

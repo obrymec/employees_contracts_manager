@@ -1,91 +1,186 @@
+<!--
+	@project: Employees Contracts - https://employees-contracts-manager.onrender.com/
+	@fileoverview: The contracts that are running.
+	@author: Obrymec - obrymecsprinces@gmail.com
+	@file: running_contracts.html
+	@created: 2022-02-03
+	@updated: 2023-11-19
+	@supported: DESKTOP
+	@version: 0.0.2
+-->
+
 <!--Global running contracts page-->
-<html lang = "fr" dir = "ltr">
-    <!--Running contracts page header-->
-    <head>
-        <!--Defined page charset: UTF-8-->
-        <meta charset = "utf-8" name = "viewport" content = "width=device-with, initial-scale=1.0"/>
-        <!--App favicon-->
-	<link rel = "shortcut icon" type = "image/ico" href = "../favicon.ico"/>
-	<link rel = "icon" type = "image/ico" href = "../favicon.ico"/>
-        <!--Loading the page style-->
-        <link rel = "stylesheet" href = "../css/generic.css"/>
-        <!--Title-->
-        <title>Contrat(s) en cours</title>
-    </head>
-    <!--Page body content-->
-    <body>
-        <!--Big container-->
-        <div class = "big-container">
-            <!--Slider menu container-->
-            <div class = "menu-bar">
-                <!--Menu options-->
-                <div class = "menu-options">
-                    <!--Stop contract option-->
-                    <div class = "stop-contract option" title = "Arrêter un employé sous contrat."><label>Arrêter un contrat</label></div>
-                    <!--Running contracts option-->
-                    <div class = "running-contracts option active" title = "Consulter la liste de(s) contrat(s) en cours.">
-                        <label>Contrat(s) en cours</label>
-                    </div>
-                    <!--Expired contracts option-->
-                    <div class = "expired-contracts option" title = "Consulter la liste de(s) contrat(s) terminé(s).">
-                        <label>Contrat(s) terminé(s)</label>
-                    </div>
-                    <!--Adds a contract option-->
-                    <div class = "add-contract option" title = "Enregistrer un contrat."><label>Enregistrer un contrat</label></div>
-                    <!--Adds a mistake option-->
-                    <div class = "add-mistake option" title = "Signaler une faute."><label>Enregistrer une faute</label></div>
-                    <!--Bad employees option-->
-                    <div class = "bad-employees option" title = "Consulter la liste de(s) employé(s) fautif."><label>Employé(s) fautif</label></div>
-                    <!--Busy employees option-->
-                    <div class = "busy-employees option" title = "Consulter la liste de(s) employé(s) sous un contrat.">
-                        <label>Employé(s) sous contrat</label>
-                    </div>
-                    <!--Employee mistakes option-->
-                    <div class = "employee-mistakes option" title = "Consulter le(s) faute(s) comise par un employé donné.">
-                        <label>Faute(s) d'un employé</label>
-                    </div>
-                    <!--Override contract option-->
-                    <div class = "override-contract option" title = "Renouveler un contrat arrivé à échéance."><label>Renouveler un contrat</label></div>
-                    <!--Log out option-->
-                    <div class = "logout option" title = "Se déconnecter maintenant du système."><label>Déconnexion</label></div>
-                <!--Dilusion-->
-                </div><div class = "empty-section"></div>
-            </div>
-            <!--Page data-->
-            <div class = "page-data">
-                <!--Header title-->
-                <div class = "header-title"><label><strong>Contrat(s) en cours</strong></label></div>
-                <!--Page content-->
-                <div class = "page-content">
-                    <!--UI controls container-->
-                    <div class = "ui-controls">
-                        <!--Table data container-->
-                        <table class = "table-data">
-                            <!--Table header-->
-                            <thead class = "table-header">
-                                <!--Id-->
-                                <th><label>Identifiant</label></th>
-                                <!--Name-->
-                                <th><label>Nom</label></th>
-                                <!--Surname(s)-->
-                                <th><label>Prénom(s)</label></th>
-                                <!--Start date-->
-                                <th><label>Date d'embauche</label></th>
-                                <!--End date-->
-                                <th><label>Date de fin</label></th>
-                                <!--Time-->
-                                <th><label>Durée</label></th>
-                            </thead>
-                        <!--Refresh button-->
-                        </table><button id = "running-contracts-btn" title = "Rafraîchir la page.">Rafraîchir la page</button>
-                    <!--Delusion-->
-                    </div><div class = "empty-section"></div>
-                </div>
-            </div>
-        </div>
-        <!--Dependencies and controllers-->
-        <script src = "../js/basics_tools.js" type = "text/javascript"></script>
-        <script type = "text/javascript" src = "../js/jquery.js"></script>
-        <script type = "text/javascript" src = "../js/generic.js"></script>
-        <script type = "text/javascript" src = "../js/running_contracts.js"></script>
-    </body>
+<html lang = "en" dir = "ltr">
+	<!--Running contracts page header-->
+	<head>
+		<!--Title-->
+		<title>Current contract(s)</title>
+		<!--Loading the page style-->
+		<link
+			href = "./css/generic.css"
+			rel = "stylesheet"
+		/>
+		<!--Defined page charset: UTF-8-->
+		<meta
+			content = "width=device-with, initial-scale=1.0"
+			charset = "utf-8"
+			name = "viewport"
+		/>
+		<!--App favicon-->
+		<link
+			href = "./favicon.ico"
+			rel = "shortcut icon"
+			type = "image/ico"
+		/>
+		<link
+			href = "./favicon.ico"
+			type = "image/ico"
+			rel = "icon	"
+		/>
+	</head>
+	<!--Page body content-->
+	<body>
+		<!--Big container-->
+		<div class = "big-container">
+			<!--Slider menu container-->
+			<div class = "menu-bar">
+				<!--Menu options-->
+				<div class = "menu-options">
+					<!--Stop contract option-->
+					<div
+						title = "Arrest a contract employee."
+						class = "stop-contract option"
+					>
+						<span>Stop a contract</span>
+					</div>
+					<!--Running contracts option-->
+					<div
+						title = "Consult the list of current contract(s)."
+						class = "running-contracts option active"
+					>
+						<span>Current contract(s)</span>
+					</div>
+					<!--Expired contracts option-->
+					<div
+						title = "View the list of completed contract(s)."
+						class = "expired-contracts option"
+					>
+						<span>Completed contract(s)</span>
+					</div>
+					<!--Adds a contract option-->
+					<div
+						title = "Register a contract."
+						class = "add-contract option"
+					>
+						<span>Register a contract</span>
+					</div>
+					<!--Adds a mistake option-->
+					<div
+						class = "add-mistake option"
+						title = "Report a mistake."
+					>
+						<span>Register a foul</span>
+					</div>
+					<!--Bad employees option-->
+					<div
+						title = "Consult the list of employee(s) at fault."
+						class = "bad-employees option"
+					>
+						<span>Offending employee(s)</span>
+					</div>
+					<!--Busy employees option-->
+					<div
+						title = "View the list of employee(s) under a contract."
+						class = "busy-employees option"
+					>
+						<span>Contracted employee(s)</span>
+					</div>
+					<!--Employee mistakes option-->
+					<div
+						title = "View the fault(s) committed by a given employee."
+						class = "employee-mistakes option"
+					>
+						<span>Employee's faults</span>
+					</div>
+					<!--Override contract option-->
+					<div
+						title = "Renew an expired contract."
+						class = "override-contract option"
+					>
+						<span>Renew a contract</span>
+					</div>
+					<!--Log out option-->
+					<div
+						title = "Now log out of the system."
+						class = "logout option"
+					>
+						<span>Log out</span>
+					</div>
+				</div>
+				<!--Dilusion-->
+				<div class = "empty-section"></div>
+			</div>
+			<!--Page data-->
+			<div class = "page-data">
+				<!--Header title-->
+				<div class = "header-title">
+					<span>
+						<strong>Current contract(s)</strong>
+					</span>
+				</div>
+				<!--Page content-->
+				<div class = "page-content">
+					<!--UI controls container-->
+					<div class = "ui-controls">
+						<!--Table data container-->
+						<table class = "table-data">
+							<!--Table header-->
+							<thead class = "table-header">
+								<!--Id-->
+								<th><span>ID</span></th>
+								<!--Name-->
+								<th><span>Name</span></th>
+								<!--Surname(s)-->
+								<th><span>Surname(s)</span></th>
+								<!--Start date-->
+								<th><span>Hiring date</span></th>
+								<!--End date-->
+								<th><span>End date</span></th>
+								<!--Time-->
+								<th><span>Duration</span></th>
+							</thead>
+						</table>
+						<!--Refresh button-->
+						<button
+							id = "employee-mistakes-btn"
+							title = "Refresh the page."
+						>
+							Refresh the page
+						</button>
+					</div>
+					<!--Delusion-->
+					<div class = "empty-section"></div>
+				</div>
+			</div>
+		</div>
+		<!--External dependencies-->
+		<script
+			type = "text/javascript"
+			src = "./js/jquery.js"
+		></script>
+		<!--Custom dependencies-->
+		<script
+			src = "./js/basics_tools.js"
+			type = "text/javascript"
+		></script>
+		<script
+			type = "text/javascript"
+			src = "./js/generic.js"
+		></script>
+		<!--Controller-->
+		<script
+			src = "./js/running_contracts.js"
+			type = "text/javascript"
+		></script>
+	</body>
+</html>

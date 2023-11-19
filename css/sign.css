@@ -1,114 +1,137 @@
-/*Section options*/
-div.sign-up-option {
-    padding: 10px 10px 10px 10px;
+/**
+* @project: Employees Contracts - https://employees-contracts-manager.onrender.com/
+* @fileoverview: The main stylesheet of application.
+* @author: Obrymec - obrymecsprinces@gmail.com
+* @created: 2022-02-03
+* @updated: 2023-11-19
+* @supported: DESKTOP
+* @file: sign.css
+* @version: 0.0.3
+*/
+
+/* Colors theme */
+:root {
+	--primary-color: #FA8072;
+	--black-500: #343434;
+	--silver-500: #ccc;
+	--silver: silver;
+	--white: #FFF;
 }
 
-/*Button hover*/
+/* Button hover */
 button:hover {
-    background-color: #FA8072;
+  background-color: var(--primary-color);
 }
 
-/*Sign in label design*/
-div.sign-in-option > label {
-    transform: translateY(10px);
-}
-
-/*Inputs focus*/
+/* Inputs focus */
 input:focus {
-    border-color: #FFA07A;
+	border-color: var(--primary-color);
 }
 
-/*Inputs placeholder*/
+/* Section options */
+div.sign-up-option {
+  padding: 10px 10px 10px 10px;
+}
+
+/* Sign in label design */
+div.sign-in-option > span {
+  transform: translateY(10px);
+}
+
+/* Inputs placeholder */
 input::placeholder {
-    font-style: italic;
+	font-style: italic;
 }
 
-/*Sign up body*/
-div.sign-up-body, div.sign-in-body {
-    padding: 15px;
+/* Sign up body */
+div.sign-up-body,
+div.sign-in-body {
+	padding: 15px;
 }
 
-/*Hider*/
+/* Hider */
 div.hide {
-    display: none;
+	display: none;
 }
 
-/*Cursor effect*/
-div.sign-in-option > label, div.sign-up-option > label {
-    cursor: pointer;
-    display: block;
+/* Cursor effect */
+div.sign-in-option > span,
+div.sign-up-option > span {
+	cursor: pointer;
+	display: block;
 }
 
-/*Active section*/
+/* Active section */
 div.active-section {
-    background-color: #fff;
-    padding-right: 10px;
-    padding-left: 10px;
-    color: #343434;
+	background-color: var(--white);
+	color: var(--black-500);
+	padding-right: 10px;
+	padding-left: 10px;
 }
 
-/*Label design*/
-label, button, input::placeholder {
-    font-family: sans-serif;
-    letter-spacing: 1.5px;
-    user-select: none;
-    font-size: 16px;
+/* Text design */
+input::placeholder,
+span, button {
+	font-family: sans-serif;
+	letter-spacing: 1.5px;
+	user-select: none;
+	font-size: 16px;
 }
 
-/*Body*/
+/* Body */
 body {
-    background-color: #ccc;
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+	background-color: var(--silver-500);
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
 }
 
-/*Big container*/
+/* Big container */
 div.sign-big-container {
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border-radius: 5px;
-    position: fixed;
-    width: 600px;
-    left: 50%;
-    top: 50%;
+	transform: translate(-50%, -50%);
+	background-color: var(--white);
+	border-radius: 5px;
+	position: fixed;
+	width: 600px;
+	left: 50%;
+	top: 50%;
 }
 
-/*Inputs*/
+/* Inputs */
 input {
-    border: 1px solid silver;
-    padding-right: 15px;
-    padding-left: 15px;
-    border-radius: 3px;
-    margin-top: 10px;
-    outline: none;
-    width: 94.5%;
-    height: 30px;
+	border: 1px solid var(--silver);
+	padding-right: 15px;
+	padding-left: 15px;
+	border-radius: 3px;
+	margin-top: 10px;
+	outline: none;
+	width: 94.5%;
+	height: 30px;
 }
 
-/*Tab header*/
+/* Tab header */
 div.header-tab {
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-    background-color: #E9967A;
-    justify-content: center;
-    display: inline-flex;
-    padding-left: 10px;
-    color: #fff;
-    width: 590px;
-    gap: 20px;
+	background-color: var(--primary-color);
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	justify-content: center;
+	display: inline-flex;
+	color: var(--white);
+	padding-left: 10px;
+	width: 590px;
+	gap: 20px;
 }
 
-/*Button design*/
+/* Button design */
 button {
-    background-color: #FFA07A;
-    padding-bottom: 8px;
-    border-radius: 3px;
-    padding-top: 8px;
-    margin-top: 16px;
-    cursor: pointer;
-    outline: none;
-    color: #fff;
-    border: none;
-    width: 100%;
+	background-color: var(--primary-color);
+	padding-bottom: 8px;
+	color: var(--white);
+	border-radius: 3px;
+	padding-top: 8px;
+	margin-top: 16px;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	width: 100%;
 }
