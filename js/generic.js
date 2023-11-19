@@ -1,7 +1,7 @@
 // Attributes.
-const HOST_NAME = (window.location.href.split (".com") [0] + ".com");
+var HOST_NAME = (window.location.href.split (".com") [0] + ".com");
 //const HOST_NAME = "http://localhost:5000";
-let is_pressed = false;
+var is_pressed = false;
 
 // Manages all basics "POST" requests.
 function post_request (data, is_sign) {

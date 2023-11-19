@@ -1,18 +1,75 @@
-// When this web page is fulled loaded.
+/**
+* @project Employees Contracts - https://employees-contracts-manager.onrender.com/
+* @fileoverview The controller to create a contract.
+* @author Obrymec - obrymecsprinces@gmail.com
+* @file add_contract.js
+* @created 2022-02-03
+* @updated 2023-11-19
+* @supported DESKTOP
+* @version 0.0.2
+*/
+
+// When this web page
+// is fulled loaded.
 $ (() => {
-	// Redirecting to sign web page.
-    if (String (get_cookie ("user")) === "undefined") window.location.href = HOST_NAME;
-    // Fixing "input" event.
-	$ ("input#sdate, input#edate").on ("input", () => date_difference ());
-    // Fixing "click" event.
-    $ ("button#save-contract-btn").click (() => post_request (new Object ({
-        button_id: "button#save-contract-btn", button_text: "Vérification...", operation_link: "save-contract",
-        page_link: "running-contracts", server_data: new Object ({
-            surname: $ ("input#surname").val ().toLowerCase ().trimLeft ().trimRight (),
-            name: $ ("input#name").val ().toLowerCase ().trimLeft ().trimRight (),
-            sdate: $ ("input#sdate").val ().trimLeft ().trimRight (),
-            edate: $ ("input#edate").val ().trimLeft ().trimRight (),
-            time: $ ("input#time").val ().trimLeft ().trimRight ()
-        })
-    }), false));
+	// Whether the user
+	// isn't connected.
+	if (
+		String (
+			get_cookie ("user")
+		) === "undefined"
+	) {
+		// Redirecting to
+		// sign web page.
+		window.location.href = (
+			HOST_NAME
+		);
+	}
+	// Listens `input` event.
+	$ ("input#sdate, input#edate")
+		.on (
+			"input", date_difference
+		);
+	// Listens `click` event.
+	$ ("button#save-contract-btn")
+		.click (
+			() => post_request ({
+				button_text: "Checking...",
+				button_id: (
+					"button#save-contract-btn"
+				),
+				operation_link: (
+					"save-contract"
+				),
+				page_link: (
+					"running-contracts"
+				),
+				server_data: {
+					sdate: (
+						$ ("input#sdate")
+							.val ().trim ()
+					),
+					edate: (
+						$ ("input#edate")
+							.val ().trim ()
+					),
+					time: (
+						$ ("input#time")
+							.val ().trim ()
+					),
+					surname: (
+						$ ("input#surname")
+							.val ()
+							.toLowerCase ()
+							.trim ()
+					),
+					name: (
+						$ ("input#name")
+							.val ()
+							.toLowerCase ()
+							.trim ()
+					)
+				}
+			}, false)
+		);
 });
