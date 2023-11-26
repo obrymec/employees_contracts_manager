@@ -1,9 +1,32 @@
+/**
+* @project Employees Contracts - https://employees-contracts-manager.onrender.com/
+* @fileoverview The base controller for all others controllers.
+* @author Obrymec - obrymecsprinces@gmail.com
+* @created 2022-02-03
+* @updated 2023-11-26
+* @supported DESKTOP
+* @file generic.js
+* @version 0.0.2
+*/
+
 // Attributes.
-var HOST_NAME = (window.location.href.split (".com") [0] + ".com");
 //const HOST_NAME = "http://localhost:5000";
 var is_pressed = false;
+var HOST_NAME = (
+	`${
+		window.location
+			.href.split (
+				".com"
+			)[0]
+	}.com`
+);
 
 // Manages all basics "POST" requests.
+/**
+ * 
+ * @param {*} data 
+ * @param {*} is_sign 
+ */
 function post_request (data, is_sign) {
     // Redirecting to stop contract web page.
     if (is_sign) {

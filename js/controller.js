@@ -1,37 +1,150 @@
+/**
+* @project Employees Contracts - https://employees-contracts-manager.onrender.com/
+* @fileoverview The back-end controller to manage the client requests.
+* @author Obrymec - obrymecsprinces@gmail.com
+* @file controller.js
+* @created 2022-02-03
+* @updated 2023-11-26
+* @supported DESKTOP
+* @version 0.0.2
+*/
+
 // Attributes.
 const mysql = require ("mysql");
-const pool = mysql.createPool (new Object ({host: "db4free.net", port: 3306, user: "emp_root006", password: "root1234", multipleStatements: true, database: "emp_contracts006"}));
-const email_validator = require ("email-validator");
-const mailer = require ("./mail_sender.js");
+const email_validator = (
+	require ("email-validator")
+);
+const mailer = (
+	require ("./mail_sender.js")
+);
+const pool = mysql.createPool ({
+	database: "emp_contracts006",
+	multipleStatements: true,
+	password: "root1234",
+  host: "db4free.net",
+	user: "emp_root006",
+	port: 3306
+});
 
-// Parses the start and end dates.
-function _parse_dates (data) {
-    // Getting start date and end dates parts as an array. Then, getting start date object reference.
-    let sdate = data.sdate.split ('-'), edate = data.edate.split ('-'); sdate = new Date (parseInt (sdate [0]), parseInt (sdate [1]), parseInt (sdate [2]));
-    // Getting end date object reference.
-    edate = new Date (parseInt (edate [0]), parseInt (edate [1]), parseInt (edate [2])); return [sdate, edate];
+/**
+ * @description Parses the
+ * 	start and end dates.
+ * @param {{
+ * 	sdate: String,
+ * 	edate: String
+ * }} data The start
+ * 	and end dates.
+ * @function parse_dates_
+ * @private {Function}
+ * @returns {Array<Date>} Array
+ */
+function parse_dates_ (data) {
+	// Gets the start date.
+	let sdate = (
+		data.sdate.split ('-')
+	);
+	// Gets the end date.
+	let edate = (
+		data.edate.split ('-')
+	);
+	// Gets start date object.
+	sdate = new Date (
+		parseInt (sdate[0]),
+		parseInt (sdate[1]),
+		parseInt (sdate[2])
+	);
+	// Gets end date object.
+	edate = new Date (
+		parseInt (edate[0]),
+		parseInt (edate[1]),
+		parseInt (edate[2])
+	);
+	// Returns the final
+	// resultss.
+	return [sdate, edate];
 }
 
-// Returns all employee's mistakes.
-module.exports.get_employee_mistakes = (data, result) => {
-    // Converts the given id into an integer and checks entry.
-    data.id = parseInt (data.id); if (data.id <= -1) result (new Object ({message: "Aucun employé n'a été choisi.", status: 500}));
-    // Otherwise.
-    else {
-        // Contains a sql request to get employee mistakes.
-        let select = "SELECT Mistakes.id, Mistakes.type, Mistakes.mdate, Mistakes.description FROM `Mistakes` INNER JOIN\
-            `Contracts` ON Contracts.id = Mistakes.contract_id WHERE Mistakes.contract_id = ?;";
-        // Loads all employee's mistakes.
-        pool.query (select, [data.id], (error, response) => {
-            // Some error(s) have been detected.
-            if (error) {console.log (error); result (new Object ({status: 500, message: "Requête échouée. Veuillez reéssayer !"}));}
-            // Otherwise.
-            else result (new Object ({status: 200, data: response}));
-        });
-    }
-}
+/**
+ * @description Sends all
+ * 	employee's mistakes.
+ * @param {{
+ * 	id: int
+ * }} data The request data.
+ * @param {{
+ * 	message?: String,
+ * 	response?: any, 
+ * 	status: int
+ * }} result The response results.
+ * @function get_employee_mistakes
+ * @public
+ * @returns {void} void
+ */
+module.exports.get_employee_mistakes = (
+	(data, result) => {
+		// Converts the given
+		// id into an integer.
+		data.id = parseInt (
+			data.id
+		);
+		// Whether the given
+		// id is invalid.
+		if (data.id <= -1) {
+			// No chosen employee.
+			result ({
+				status: 500,
+				message: (
+					"No employees have been chosen."
+				)
+			});
+		// Otherwise.
+		} else {
+			// Contains a sql request
+			// to get employee mistakes.
+			let select = `
+				SELECT
+					Mistakes.id,
+					Mistakes.type,
+					Mistakes.mdate,
+					Mistakes.description
+				FROM \`Mistakes\`
+				INNER JOIN \`Contracts\`
+				ON Contracts.id = Mistakes.contract_id
+				WHERE Mistakes.contract_id = ?;
+			`;
+			// Loads employee's
+			// mistakes.
+			pool.query (
+				select, [data.id],
+				(error, response) => {
+					// Whether there are
+					// some errors.
+					if (error) {
+						// Request failed.
+						result ({
+							status: 500,
+							message: (
+								"Request failed. Try Again !"
+							)
+						});
+					// Otherwise.
+					} else {
+						// Request success.
+						result ({
+							data: response,
+							status: 200
+						});
+					}
+				}
+			);
+		}
+	}
+);
 
 // Returns all bads employees.
+/**
+ * 
+ * @param {*} result 
+ */
 module.exports.get_bad_employees = result => {
     // Contains a sql request to get bads employees.
     let select = "SELECT DISTINCT Contracts.id, Contracts.name, Contracts.surname FROM `Contracts` INNER JOIN `Mistakes` ON Contracts.id = Mistakes.contract_id;";

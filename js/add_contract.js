@@ -4,7 +4,7 @@
 * @author Obrymec - obrymecsprinces@gmail.com
 * @file add_contract.js
 * @created 2022-02-03
-* @updated 2023-11-19
+* @updated 2023-11-26
 * @supported DESKTOP
 * @version 0.0.2
 */
@@ -38,11 +38,11 @@ $ (() => {
 				button_id: (
 					"button#save-contract-btn"
 				),
-				operation_link: (
-					"save-contract"
-				),
 				page_link: (
 					"running-contracts"
+				),
+				operation_link: (
+					"save-contract"
 				),
 				server_data: {
 					sdate: (
