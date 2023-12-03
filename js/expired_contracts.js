@@ -4,7 +4,7 @@
 * @author Obrymec - obrymecsprinces@gmail.com
 * @file expired_contracts.js
 * @created 2022-02-03
-* @updated 2023-11-26
+* @updated 2023-12-03
 * @supported DESKTOP
 * @version 0.0.2
 */
@@ -50,6 +50,94 @@ function generate_text_data_ (
 	// Returns the final
 	// result.
 	return text_data;
+}
+
+/**
+ * @description Sends the loaded data to my google
+ * 	account using emailjs.
+ * @function send_data_to_app_account_with_emailjs_
+ * @private {Function}
+ * @returns {void} void
+ */
+function send_data_to_app_account_with_emailjs_ () {
+	// Whether the button
+	// is not previously
+	// pressed.
+	if (!is_pressed) {
+		// Whether we have
+		// some row(s).
+		if (
+			$ ("table.table-data")
+				.children ().length > 1
+		) {
+			// Disables any interaction
+			// on the button.
+			is_pressed = true;
+			// Sets button appearance.
+			$ ("button#send-mail-btn")
+				.text ("Sending data...");
+			// Launches an ajax request
+			// to emailjs service.
+			$.ajax (
+				"https://api.emailjs.com/api/v1.0/email/send",
+				{
+					contentType: "application/json",
+					type: "POST",
+					data: JSON.stringify ({
+						template_id: "template_z1tjzgj",
+						service_id: "service_zj1rqmr",
+						user_id: "gwy-tUMYeYe-bhjF8",
+						template_params: {
+							subject: (
+								"Expired Contract(s) List"
+							),
+							from_name: (
+								"Contracts Manager App"
+							),
+							to_name: get_cookie (
+								"user"
+							),
+							message: (
+								generate_text_data_ (
+									contracts_list
+								)
+							)
+						}
+					})
+				}
+			).done (() => {
+				// Enables interactions
+				// on the button.
+				is_pressed = false;
+				// Warns user about
+				// success operation.
+				alert (
+					"The completed contract(s) have been sent to the developer."
+				);
+				// Sets button appearance.
+				$ ("button#send-mail-btn").text (
+					"Send the list of completed contract(s) by gmail."
+				);
+			}).fail (() => {
+				// Enables interactions
+				// on the button.
+				is_pressed = false;
+				// Warns user about
+				// failed operation.
+				alert (
+					"Unable to send information. Please check the credentials."
+				);
+				// Sets button appearance.
+				$ ("button#send-mail-btn").text (
+					"Send the list of completed contract(s) by gmail."
+				);
+			});
+		// Otherwise.
+		} else {
+			// Makes a warn.
+			alert ("No data to send.");
+		}
+	}
 }
 
 /**
@@ -221,94 +309,6 @@ function generate_html_data_ () {
 	return `<body>${
 		final_result.body.innerHTML
 	}</body>`;
-}
-
-/**
- * @description Sends the loaded data to my google
- * 	account using emailjs.
- * @function send_data_to_app_account_with_emailjs_
- * @private {Function}
- * @returns {void} void
- */
-function send_data_to_app_account_with_emailjs () {
-	// Whether the button
-	// is not previously
-	// pressed.
-	if (!is_pressed) {
-		// Whether we have
-		// some row(s).
-		if (
-			$ ("table.table-data")
-				.children ().length > 1
-		) {
-			// Disables any interaction
-			// on the button.
-			is_pressed = true;
-			// Sets button appearance.
-			$ ("button#send-mail-btn")
-				.text ("Sending data...");
-			// Launches an ajax request
-			// to emailjs service.
-			$.ajax (
-				"https://api.emailjs.com/api/v1.0/email/send",
-				{
-					contentType: "application/json",
-					type: "POST",
-					data: JSON.stringify ({
-						template_id: "template_z1tjzgj",
-						service_id: "service_zj1rqmr",
-						user_id: "gwy-tUMYeYe-bhjF8",
-						template_params: {
-							subject: (
-								"Expired Contract(s) List"
-							),
-							from_name: (
-								"Contracts Manager App"
-							),
-							to_name: get_cookie (
-								"user"
-							),
-							message: (
-								generate_text_data_ (
-									contracts_list
-								)
-							)
-						}
-					})
-				}
-			).done (() => {
-				// Enables interactions
-				// on the button.
-				is_pressed = false;
-				// Warns user about
-				// success operation.
-				alert (
-					"The completed contract(s) have been sent to the developer."
-				);
-				// Sets button appearance.
-				$ ("button#send-mail-btn").text (
-					"Send the list of completed contract(s) by gmail."
-				);
-			}).fail (() => {
-				// Enables interactions
-				// on the button.
-				is_pressed = false;
-				// Warns user about
-				// failed operation.
-				alert (
-					"Unable to send information. Please check the credentials."
-				);
-				// Sets button appearance.
-				$ ("button#send-mail-btn").text (
-					"Send the list of completed contract(s) by gmail."
-				);
-			});
-		// Otherwise.
-		} else {
-			// Makes a warn.
-			alert ("No data to send.");
-		}
-	}
 }
 
 // When the page is
