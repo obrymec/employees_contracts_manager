@@ -4,7 +4,7 @@
 * @author Obrymec - obrymecsprinces@gmail.com
 * @file controller.js
 * @created 2022-02-03
-* @updated 2023-11-26
+* @updated 2023-12-10
 * @supported DESKTOP
 * @version 0.0.2
 */
@@ -27,13 +27,87 @@ const pool = mysql.createPool ({
 });
 
 /**
- * @description Parses the
- * 	start and end dates.
+ * @description Returns all expired
+ * 	contracts.
+ * @param {!Function} result Called
+ * 	when the query is done with
+ * 	errors or not.
+ * @function get_expired_contracts
+ * @public
+ * @returns {void} void
+ */
+module.exports.get_expired_contracts = (
+	result => pool.query (`
+		SELECT *
+		FROM \`Contracts\`
+		WHERE \`end_date\` <= CURDATE ();
+	`, (error, response) => {
+		// Whether some error(s)
+		// have been detected.
+		if (error) {
+			// Sends an error
+			// message.
+			result ({
+				status: 500,
+				message: (
+					"Request failed. Try Again !"
+				)
+			});
+		// Otherwise.
+		} else {
+			// Sends the response.
+			result ({
+				data: response,
+				status: 200
+			});
+		}
+	})
+);
+
+/**
+ * @description Returns all running
+ * 	contracts.
+ * @param {!Function} result Called
+ * 	when the query is done with
+ * 	errors or not.
+ * @function get_running_contracts
+ * @returns {void} void
+ */
+module.exports.get_running_contracts = (
+	result => pool.query (`
+		SELECT * FROM \`Contracts\`
+		WHERE \`end_date\` > CURDATE ();
+	`, (error, response) => {
+		// Whether some error(s)
+		// have been detected.
+		if (error) {
+			// Sends an error
+			// message.
+			result ({
+				status: 500,
+				message: (
+					"Request failed. Try Again !"
+				)
+			});
+		// Otherwise.
+		} else {
+			// Sends the response.
+			result ({
+				data: response,
+				status: 200
+			});
+		}
+	})
+);
+
+/**
+ * @description Parses the start
+ * 	and end dates.
  * @param {{
  * 	sdate: String,
  * 	edate: String
- * }} data The start
- * 	and end dates.
+ * }} data The start and end
+ * dates.
  * @function parse_dates_
  * @private {Function}
  * @returns {Array<Date>} Array
@@ -65,11 +139,61 @@ function parse_dates_ (data) {
 }
 
 /**
- * @description Sends all
- * 	employee's mistakes.
- * @param {{
- * 	id: int
- * }} data The request data.
+ * @description Returns all bads
+ * 	employees.
+ * @param {!Function} result
+ * 	Called when the query is
+ * 	done with errors or not.
+ * @function get_bad_employees
+ * @public
+ * @returns {void} void 
+ */
+module.exports.get_bad_employees = (
+	result => {
+		// The sql request to
+		// get bads employees.
+		const select = `
+			SELECT DISTINCT
+				Contracts.id,
+				Contracts.name,
+				Contracts.surname
+			FROM \`Contracts\`
+			INNER JOIN \`Mistakes\`
+			ON Contracts.id = Mistakes.contract_id;
+		`;
+		// Loads all bads
+		// employees.
+		pool.query (select, (
+			error, response
+		) => {
+			// Whether some error(s)
+			// have been detected.
+			if (error) {
+				// Sends an error
+				// message.
+				result ({
+					status: 500,
+					message: (
+						"Request failed. Try Again !"
+					)
+				});
+			// Otherwise.
+			} else {
+				// Sends the response.
+				result ({
+					data: response,
+					status: 200
+				});
+			}
+		});
+	}
+);
+
+/**
+ * @description Sends all employee's
+ * 	mistakes.
+ * @param {{id: int}} data The request
+ * 	data.
  * @param {{
  * 	message?: String,
  * 	response?: any, 
@@ -98,8 +222,8 @@ module.exports.get_employee_mistakes = (
 			});
 		// Otherwise.
 		} else {
-			// Contains a sql request
-			// to get employee mistakes.
+			// The sql request to get
+			// employee mistakes.
 			let select = `
 				SELECT
 					Mistakes.id,
@@ -119,7 +243,8 @@ module.exports.get_employee_mistakes = (
 					// Whether there are
 					// some errors.
 					if (error) {
-						// Request failed.
+						// Sends an error
+						// message.
 						result ({
 							status: 500,
 							message: (
@@ -128,7 +253,7 @@ module.exports.get_employee_mistakes = (
 						});
 					// Otherwise.
 					} else {
-						// Request success.
+						// Sends the response.
 						result ({
 							data: response,
 							status: 200
@@ -140,174 +265,558 @@ module.exports.get_employee_mistakes = (
 	}
 );
 
-// Returns all bads employees.
 /**
- * 
- * @param {*} result 
+ * @description Stops the given
+ * 	employee contract.
+ * @param {{id: int}} data The
+ * 	employee's id.
+ * @param {!Function} result
+ * 	Called when the query is
+ * 	done with errors or not.
+ * @function stop_contract
+ * @public
+ * @returns {void} void
  */
-module.exports.get_bad_employees = result => {
-    // Contains a sql request to get bads employees.
-    let select = "SELECT DISTINCT Contracts.id, Contracts.name, Contracts.surname FROM `Contracts` INNER JOIN `Mistakes` ON Contracts.id = Mistakes.contract_id;";
-    // Loads all bads employees.
-    pool.query (select, (error, response) => {
-        // Some error(s) have been detected.
-        if (error) result (new Object ({status: 500, message: "Requête échouée. Veuillez reéssayer !"}));
-        // Otherwise.
-        else result (new Object ({status: 200, data: response}));
-    });
+module.exports.stop_contract = (
+	data, result
+) => {
+	// Converts the given id
+	// into an integer and
+	// checks entry.
+	data.id = parseInt (data.id);
+	// Whether no employee
+	// has been chosen.
+	if (data.id <= -1) {
+		// Sends an error
+		// message.
+		result ({
+			status: 500,
+			message: (
+				"Request failed. Try Again !"
+			)
+		});
+	// Otherwise.
+	} else {
+		// Deletes all associated
+		// mistakes of the given
+		// contract.
+		pool.query (`
+			DELETE FROM \`Mistakes\`
+			WHERE \`contract_id\` = ?;
+		`, [data.id], (
+			error, _
+		) => {
+			// Whether some error(s)
+			// have been detected.
+			if (error) {
+				// Sends an error
+				// message.
+				result ({
+					status: 500,
+					message: (
+						"Request failed. Try Again !"
+					)
+				});
+			// Otherwise.
+			} else {
+				// Deletes the current
+				// employee contract.
+				pool.query (`
+					DELETE FROM \`Contracts\`
+					WHERE \`id\` = ?;
+				`,
+				[data.id], (error, _) => {
+					// Whether some error(s)
+					// have been detected.
+					if (error) {
+						// Sends an error
+						// message.
+						result ({
+							status: 500,
+							message: (
+								"Request failed. Try Again !"
+							)
+						});
+					// Otherwise.
+					} else {
+						// Sends a success
+						// message.
+						result ({
+							status: 200,
+							message: (
+								"The contract was successfully terminated."
+							)
+						});
+					}
+				});
+			}
+		});
+	}
 }
 
-// Returns all expired contracts.
-module.exports.get_expired_contracts = result => pool.query ("SELECT * FROM `Contracts` WHERE `end_date` <= CURDATE ();", (error, response) => {
-    // Some error(s) have been detected.
-    if (error) result (new Object ({status: 500, message: "Requête échouée. Veuillez reéssayer !"}));
-    // Otherwise.
-    else result (new Object ({status: 200, data: response}));
-});
-
-// Returns all running contracts.
-module.exports.get_running_contracts = result => pool.query ("SELECT * FROM `Contracts` WHERE `end_date` > CURDATE ();", (error, response) => {
-    // Some error(s) have been detected.
-    if (error) result (new Object ({status: 500, message: "Requête échouée. Veuillez reéssayer !"}));
-    // Otherwise.
-    else result (new Object ({status: 200, data: response}));
-});
-
-// Stops the given employee contract.
-module.exports.stop_contract = (data, result) => {
-    // Converts the given id into an integer and checks entry.
-    data.id = parseInt (data.id); if (data.id <= -1) result (new Object ({message: "Aucun employé n'a été choisi.", status: 500}));
-    // Otherwise.
-    else {
-        // Deletes all associated mistakes of the given contract.
-        pool.query ("DELETE FROM `Mistakes` WHERE `contract_id` = ?;", [data.id], (error, response) => {
-            // Some error(s) have been detected.
-            if (error) {console.log (error); result (new Object ({status: 500, message: "Requête échouée. Veuillez reéssayer !"}));}
-            // Deletes the current employee contract.
-            else pool.query ("DELETE FROM `Contracts` WHERE `id` = ?;", [data.id], (error, response) => {
-                // Some error(s) have been detected.
-                if (error) {console.log (error); result (new Object ({status: 500, message: "Requête échouée. Veuillez reéssayer !"}));}
-                // Otherwise.
-                else result (new Object ({status: 200, message: "Le contrat a été arrêté avec succès."}));
-            });
-        });
-    }
+/**
+ * @description Adds an employee mistake.
+ * @param {Object<String, any>} data
+ * 	The request's data.
+ * @param {!Function} result Called
+ * 	when the query is done with
+ * 	errors or not.
+ * @function save_mistake
+ * @public
+ * @returns {void} void
+ */
+module.exports.save_mistake = (
+	data, result
+) => {
+	// Whether one of these
+	// entries aren't valid.
+	if (
+		data.contract_id.toLowerCase ()
+			.includes ("aucun") ||
+		data.description.length === 0 ||
+		data.date.length === 0
+	) {
+		// Sends an error
+		// message.
+		result ({
+			status: 500,
+			message: (
+				"Some field(s) are empty."
+			)
+		});
+	// Otherwise.
+	} else {
+		// The SQL request for
+		// adding a new mistake
+		// to an employee.
+		const insert = `
+			INSERT INTO \`Mistakes\` (
+				\`contract_id\`,
+				\`type\`,
+				\`mdate\`,
+				\`description\`
+			) VALUES (?, ?, ?, ?);
+		`;
+		// Adds the current
+		// employee mistake
+		// into database.
+		pool.query (
+			insert, [
+				parseInt (data.contract_id),
+				data.type,
+				data.date,
+				data.description
+			], (err, _) => {
+				// Whether some error(s)
+				// have been detected.
+				if (err) {
+					// Sends an error
+					// message.
+					result ({
+						status: 500,
+						message: (
+							"Request failed. Try Again !"
+						)
+					});
+				// Otherwise.
+				} else {
+					// Sends a success
+					// message.
+					result ({
+						status: 200,
+						message: (
+							"Fault registration completed successfully !"
+						)
+					});
+				}
+			}
+		);
+	}
 }
 
-// Adds an employee mistake.
-module.exports.save_mistake = (data, result) => {
-    // Checks inputs.
-    if (data.contract_id.toLowerCase ().includes ("aucun") || data.description.length === 0 || data.date.length === 0) {
-        // Sends an error message.
-        result (new Object ({message: "De(s) champ(s) sont vide.", status: 500}));
-    // Otherwise.
-    } else {
-        // Contains a sql request for adding a new mistake to an employee.
-        let insert = "INSERT INTO `Mistakes` (`contract_id`, `type`, `mdate`, `description`) VALUES (?, ?, ?, ?);";
-        // Adds the current employee mistake into database.
-        pool.query (insert, [parseInt (data.contract_id), data.type, data.date, data.description], (err, res) => {
-            // Some error(s) have been detected.
-            if (err) result (new Object ({status: 500, message: "Requête échouée. Veuillez reéssayer !"}));
-            // Otherwise.
-            else result (new Object ({status: 200, message: "Enregistrement de la faute effectuée avec succès !"}));
-        });
-    }
+/**
+ * @description Overrides a contract.
+ * @param {Object<String, any>} data
+ * 	The request's data.
+ * @param {!Function} result Called
+ * 	when the query is done with
+ * 	errors or not.
+ * @function override_contract
+ * @public
+ * @returns {void} void
+ */
+module.exports.override_contract = (
+	data, result
+) => {
+	// Converts the passed
+	// id into an integer.
+	data.id = parseInt (data.id);
+	// Whether one of these
+	// entries aren't valid.
+	if (
+		data.edate.length === 0 ||
+		data.sdate.length === 0 ||
+		data.time.length == 0 ||
+		data.id <= -1
+	) {
+		// Sends an error message.
+		result ({
+			status: 500,
+			message: (
+				"Some field(s) are empty."
+			)
+		});
+	// Otherwise.
+	} else {
+		// Parses the passed dates.
+		const dates = parse_dates_ (
+			data
+		);
+		// Whether the start date
+		// is bigger than the end
+		// date.
+		if (dates[0] >= dates[1]) {
+			// Sends a warn
+			// message.
+			result ({
+				status: 500,
+				message: (
+					"The start date must be less than the end date."
+				)
+			});
+		// Otherwise.
+		} else {
+			// The sql request for
+			// updating the target
+			// expired contract.
+			const update = `
+				UPDATE \`Contracts\`
+				SET
+					\`start_date\` = ?,
+					\`end_date\` = ?,
+					\`duration\` = ?
+				WHERE \`id\` = ?;
+			`;
+			// Overrides the passed
+			// expired contract.
+			pool.query (update, [
+				data.sdate,
+				data.edate,
+				data.time,
+				parseInt (data.id)
+			], (err, _) => {
+				// Whether some error(s)
+				// have been detected.
+				if (err) {
+					// Sends an error
+					// message.
+					result ({
+						status: 500,
+						message: (
+							"Request failed. Try Again !"
+						)
+					});
+				// Otherwise.
+				} else {
+					// Sends a success
+					// message.
+					result ({
+						status: 200,
+						message: (
+							"Contract renewal successfully completed !"
+						)
+					});
+				}
+			});
+		}
+	}
 }
 
-// Adds a contract into a remote database.
-module.exports.save_contract = (data, result) => {
-    // Checks entries.
-    if (data.name.length === 0 || data.surname.length === 0 || data.edate.length === 0 || data.sdate.length === 0 || data.time.length == 0) {
-        // Sends an error message.
-        result (new Object ({message: "De(s) champ(s) sont vide.", status: 500}));
-    // Otherwise.
-    } else {
-        // Parses the passed dates and checks the given dates references.
-        let dates = _parse_dates (data); if (dates [0] >= dates [1]) result (new Object ({message: "La date d'embauche doit être inférieure à celle de fin.", status: 500}));
-        // The given contract is it already exists on the database ?
-        else pool.query ("SELECT `name`, `surname` FROM Contracts WHERE `name` = ? AND `surname` = ? LIMIT 0, 1;", [data.name, data.surname], (error, response) => {
-            // Some error(s) have been detected.
-            if (error) result (new Object ({status: 500, message: "Requête échouée. Veuillez reéssayer !"}));
-            // Otherwise.
-            else {
-                // The current employee contract is already exists.
-                if (response.length) result (new Object ({status: 500, message: "Ce employé est déjà sous contrat."}));
-                // Otherwise.
-                else {
-                    // Contains a sql request for adding a new contract.
-                    let insert = "INSERT INTO `Contracts` (`name`, `surname`, `start_date`, `end_date`, `duration`) VALUES (?, ?, ?, ?, ?);";
-                    // Adds the given contract data into database.
-                    pool.query (insert, [data.name, data.surname, data.sdate, data.edate, data.time], (err, res) => {
-                        // Some error(s) have been detected.
-                        if (err) result (new Object ({status: 500, message: "Requête échouée. Veuillez reéssayer !"}));
-                        // Otherwise.
-                        else result (new Object ({status: 200, message: "Enregistrement du contrat effectué avec succès !"}));
-                    });
-                }
-            }
-        });
-    }
+/**
+ * @description Adds a contract into
+ * 	a remote database.
+ * @param {Object<String, any>} data
+ * 	The request's data.
+ * @param {!Function} result Called
+ * 	when the query is done with
+ * 	errors or not.
+ * @function save_contract
+ * @public
+ * @returns {void} void
+ */
+module.exports.save_contract = (
+	data, result
+) => {
+	// Whether one of these
+	// entries aren't valid.
+	if (
+		data.surname.length === 0 ||
+		data.edate.length === 0 ||
+		data.sdate.length === 0 ||
+		data.name.length === 0 ||
+		data.time.length == 0
+	) {
+		// Sends an error message.
+		result ({
+			status: 500,
+			message: (
+				"Some field(s) are empty."
+			)
+		});
+	// Otherwise.
+	} else {
+		// Parses the passed dates.
+		const dates = parse_dates_ (
+			data
+		);
+		// Whether the start date
+		// is bigger than the end
+		// date.
+		if (dates[0] >= dates[1]) {
+			// Sends an error
+			// message.
+			result ({
+				status: 500,
+				message: (
+					"The start date must be less than the end date."
+				)
+			});
+		// Otherwise.
+		} else {
+			// The given contract is
+			// it already exists on
+			// the database ?
+			pool.query (`
+				SELECT \`name\`, \`surname\`
+				FROM Contracts
+				WHERE \`name\` = ? AND \`surname\` = ?
+				LIMIT 0, 1;
+			`, [
+				data.name, data.surname
+			], (error, response) => {
+				// Whether some error(s)
+				// have been detected.
+				if (error) {
+					// Sends an error
+					// message.
+					result ({
+						status: 500,
+						message: (
+							"Request failed. Try Again !"
+						)
+					});
+				// Otherwise.
+				} else {
+					// Whether the current
+					// employee contract
+					// is already exists.
+					if (response.length) {
+						// Sends a warn message.
+						result ({
+							status: 500,
+							message: (
+								"This employee is already under contract."
+							)
+						});
+					// Otherwise.
+					} else {
+						// The sql request for
+						// adding a new contract.
+						const insert = `
+							INSERT INTO \`Contracts\` (
+								\`name\`,
+								\`surname\`,
+								\`start_date\`,
+								\`end_date\`,
+								\`duration\`
+							) VALUES (?, ?, ?, ?, ?);
+						`;
+						// Adds the given
+						// contract data
+						// into database.
+						pool.query (insert, [
+							data.name,
+							data.surname,
+							data.sdate,
+							data.edate,
+							data.time
+						], (err, _) => {
+							// Whether some error(s)
+							// have been detected.
+							if (err) {
+								// Sends an error
+								// message.
+								result ({
+									status: 500,
+									message: (
+										"Request failed. Try Again !"
+									)
+								});
+							// Otherwise.
+							} else {
+								// Sends a success
+								// message.
+								result ({
+									status: 200,
+									message: (
+										"Contract registration successfully completed !"
+									)
+								});
+							}
+						});
+					}
+				}
+			});
+		}
+	}
 }
 
-// Overrides a contract.
-module.exports.override_contract = (data, result) => {
-    // Checks entries.
-    data.id = parseInt (data.id); if (data.id <= -1 || data.edate.length === 0 || data.sdate.length === 0 || data.time.length == 0) {
-        // Sends an error message.
-        result (new Object ({message: "De(s) champ(s) sont vide.", status: 500}));
-    // Otherwise.
-    } else {
-        // Parses the passed dates and checks the given dates references.
-        let dates = _parse_dates (data); if (dates [0] >= dates [1]) result (new Object ({message: "La date d'embauche doit être inférieure à celle de fin.", status: 500}));
-        // Otherwise.
-        else {
-            // Contains a sql request for updating the target expired contract.
-            let update = "UPDATE `Contracts` SET `start_date` = ?, `end_date` = ?, `duration` = ? WHERE `id` = ?;";
-            // Overrides the passed expired contract.
-            pool.query (update, [data.sdate, data.edate, data.time, parseInt (data.id)], (err, res) => {
-                // Some error(s) have been detected.
-                if (err) result (new Object ({status: 500, message: "Requête échouée. Veuillez reéssayer !"}));
-                // Otherwise.
-                else result (new Object ({status: 200, message: "Renouvellement du contrat effectué avec succès !"}));
-            });
-        }
-    }
-}
-
-// Sign up operation.
-module.exports.sign_up = (data, result) => {
-    // Checks inputs entry.
-    if (data.username.length === 0 || data.email.length === 0 || data.password.length === 0 || data.confirm.length === 0) {
-        // Sends an error message.
-        result (new Object ({message: "De(s) champ(s) sont vide.", status: 500}));
-    // The passed email doesn't respect standard conventions.
-    } else if (!email_validator.validate (data.email)) result (new Object ({status: 500, message: "Votre adresse email est invalide."}));
-    // Checks password confirmation.
-    else if (data.password.length !== data.confirm.length) result (new Object ({status: 500, message: "Vous n'avez pas correctement confirmer votre mot de passe."}));
-    // Otherwise.
-    else {
-        // Contains a sql request for checking an existing administrator into the database.
-        let check = "SELECT * FROM `Administrators` WHERE `pseudo` = ? OR `email` = ? LIMIT 1;";
-        // This given administrator is it already exists on the database ?
-        pool.query (check, [data.username, data.email], (error, response) => {
-            // Some error(s) have been detected.
-            if (error) result (new Object ({status: 500, message: "Requête échouée. Veuillez reéssayer !"}));
-            // Otherwise.
-            else {
-                // Contains a sql request for adding a new app administrator.
-                let insert = "INSERT INTO `Administrators` (`pseudo`, `email`, `password`) VALUES (?, ?, ?);";
-                // The current administrator is already exists.
-                if (response.length) result (new Object ({status: 500, message: "L'utilisateur renseigné est déjà inscrit sur la platforme."}));
-                // Otherwise.
-                else pool.query (insert, [data.username, data.email, data.password], (err, res) => {
-                    // Some error(s) have been detected.
-                    if (err) result (new Object ({status: 500, message: "Requête échouée. Veuillez reéssayer !"}));
-                    // Otherwise.
-                    else result (new Object ({status: 200, message: "Inscription réussi !"}));
-                });
-            }
-        });
-    }
+/**
+ * @description Sign up operation.
+ * @param {Object<String, any>} data
+ * 	The request's data.
+ * @param {!Function} result Called
+ * 	when the query is done with
+ * 	errors or not.
+ * @function sign_in
+ * @public
+ * @returns {void} void
+ */
+module.exports.sign_up = (
+	data, result
+) => {
+	// Whether one of these
+	// entries aren't valid.
+	if (
+		data.username.length === 0 ||
+		data.password.length === 0 ||
+		data.confirm.length === 0 ||
+		data.email.length === 0
+	) {
+		// Sends an error message.
+		result ({
+			status: 500,
+			message: (
+				"Some field(s) are empty."
+			)
+		});
+	// Whether the passed email
+	// doesn't respect standard
+	// conventions.
+	} else if (
+		!email_validator.validate (
+			data.email
+		)
+	) {
+		// Sends an error message.
+		result ({
+			status: 500,
+			message: (
+				"Your email address is invalid."
+			)
+		});
+	// Whether the password is
+	// not valid.
+	} else if (
+		data.password.length !==
+		data.confirm.length
+	) {
+		// Sends an error
+		// message.
+		result ({
+			status: 500,
+			message: (
+				"You have not correctly confirmed your password."
+			)
+		});
+	// Otherwise.
+	} else {
+		// The SQL request for
+		// checking an existing
+		// administrator into
+		// the database.
+		const check = `
+			SELECT * FROM \`Administrators\`
+			WHERE \`pseudo\` = ? OR \`email\` = ?
+			LIMIT 1;
+		`;
+		// This given administrator
+		// is it already exists on
+		// the database ?
+		pool.query (check, [
+			data.username, data.email
+		], (error, response) => {
+			// Whether some error(s)
+			// have been detected.
+			if (error) {
+				// Sends an error
+				// message.
+				result ({
+					status: 500,
+					message: (
+						"Request failed. Try Again !"
+					)
+				});
+			// Otherwise.
+			} else {
+				// The SQL request for
+				// adding a new app
+				// administrator.
+				const insert = `
+					INSERT INTO \`Administrators\` (
+						\`pseudo\`,
+						\`email\`,
+						\`password\`
+					) VALUES (?, ?, ?);
+				`;
+				// Whether the current
+				// administrator is
+				// already exists.
+				if (response.length) {
+					// Sends a warn
+					// message.
+					result ({
+						status: 500,
+						message: (
+							"The informed user is already registered on the platform."
+						)
+					});
+				// Otherwise.
+				} else {
+					// Tries to sign up the
+					// passed employee.
+					pool.query (insert, [
+						data.username,
+						data.email,
+						data.password
+					], (err, _) => {
+						// Whether some error(s)
+						// have been detected.
+						if (err) {
+							// Sends an error
+							// message.
+							result ({
+								status: 500,
+								message: (
+									"Failed request. Try Again !"
+								)
+							});
+						// Otherwise.
+						} else {
+							// Sends a success
+							// message.
+							result ({
+								status: 200,
+								message: (
+									"Successful registration !"
+								)
+							});
+						}
+					});
+				}
+			}
+		});
+	}
 }
 
 // Sign in operation.
