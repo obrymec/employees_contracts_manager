@@ -4,7 +4,7 @@
 * @author Obrymec - obrymecsprinces@gmail.com
 * @file controller.js
 * @created 2022-02-03
-* @updated 2023-12-10
+* @updated 2023-12-15
 * @supported DESKTOP
 * @version 0.0.2
 */
@@ -49,9 +49,10 @@ module.exports.get_expired_contracts = (
 			// message.
 			result ({
 				status: 500,
-				message: (
-					"Request failed. Try Again !"
-				)
+				message: `
+					Request failed.
+					Try Again !
+				`
 			});
 		// Otherwise.
 		} else {
@@ -85,9 +86,10 @@ module.exports.get_running_contracts = (
 			// message.
 			result ({
 				status: 500,
-				message: (
-					"Request failed. Try Again !"
-				)
+				message: `
+					Request failed.
+					Try Again !
+				`
 			});
 		// Otherwise.
 		} else {
@@ -173,9 +175,10 @@ module.exports.get_bad_employees = (
 				// message.
 				result ({
 					status: 500,
-					message: (
-						"Request failed. Try Again !"
-					)
+					message: `
+						Request failed.
+						Try Again !"
+					`
 				});
 			// Otherwise.
 			} else {
@@ -216,9 +219,10 @@ module.exports.get_employee_mistakes = (
 			// No chosen employee.
 			result ({
 				status: 500,
-				message: (
-					"No employees have been chosen."
-				)
+				message: `
+					No employees have
+					been chosen.
+				`
 			});
 		// Otherwise.
 		} else {
@@ -247,9 +251,10 @@ module.exports.get_employee_mistakes = (
 						// message.
 						result ({
 							status: 500,
-							message: (
-								"Request failed. Try Again !"
-							)
+							message: `
+								Request failed.
+								Try Again !
+							`
 						});
 					// Otherwise.
 					} else {
@@ -264,6 +269,89 @@ module.exports.get_employee_mistakes = (
 		}
 	}
 );
+
+/**
+ * @description Manages user gmail data
+ * 	sender.
+ * @param {Object<String, any>} data
+ * 	The request's data.
+ * @param {!Function} result Called
+ * 	when the query is done with
+ * 	errors or not.
+ * @function send_mail
+ * @public
+ * @returns {void} void
+ */
+module.exports.send_gmail = (
+	data, result
+) => {
+	// Creates a transporter
+	// for Gmail sending.
+	mailer.create_transporter (
+		mailer.Services.GMAIL,
+		data.source,
+		"diosine98"
+	);
+	// checks whether app is
+	// correctly connected to
+	// the passed transporter.
+	mailer.check_transporter (
+		() => {
+			// Sends the current
+			// data to the target
+			// user google account.
+			mailer.send_mail ({
+				from: data.source,
+				to: data.address,
+				html: data.html,
+				subject: `
+					List of completed
+					contract(s).
+				`,
+				failed: () => (
+					result ({
+						status: 500,
+						message: `
+							Unable to send information
+							via Gmail on the account
+							located at: ${
+								data.address
+							}. Please check the
+							credentials.
+						`
+					})
+				),
+				success: () => (
+					result ({
+						status: 200,
+						message: `
+							The completed contract(s)
+							have indeed been sent by
+							Gmail on the account
+							located at: ${
+								data.address
+							}. Please check your
+							Google mailbox to see
+							the data(s) sent.
+						`
+					})
+				)
+			});
+		},
+		() => (
+			result ({
+				status: 500,
+				message: `
+					The application has difficulty
+					sending information via Gmail
+					on the account located at: ${
+						data.address
+					}.
+				`
+			})
+		)
+	);
+}
 
 /**
  * @description Stops the given
@@ -291,9 +379,10 @@ module.exports.stop_contract = (
 		// message.
 		result ({
 			status: 500,
-			message: (
-				"Request failed. Try Again !"
-			)
+			message: `
+				Request failed.
+				Try Again !
+			`
 		});
 	// Otherwise.
 	} else {
@@ -313,9 +402,10 @@ module.exports.stop_contract = (
 				// message.
 				result ({
 					status: 500,
-					message: (
-						"Request failed. Try Again !"
-					)
+					message: `
+						Request failed.
+						Try Again !
+					`
 				});
 			// Otherwise.
 			} else {
@@ -333,9 +423,10 @@ module.exports.stop_contract = (
 						// message.
 						result ({
 							status: 500,
-							message: (
-								"Request failed. Try Again !"
-							)
+							message: `
+								Request failed.
+								Try Again !
+							`
 						});
 					// Otherwise.
 					} else {
@@ -343,9 +434,11 @@ module.exports.stop_contract = (
 						// message.
 						result ({
 							status: 200,
-							message: (
-								"The contract was successfully terminated."
-							)
+							message: `
+								The contract was
+								successfully
+								terminated.
+							`
 						});
 					}
 				});
@@ -380,9 +473,10 @@ module.exports.save_mistake = (
 		// message.
 		result ({
 			status: 500,
-			message: (
-				"Some field(s) are empty."
-			)
+			message: `
+				Some field(s)
+				are empty.
+			`
 		});
 	// Otherwise.
 	} else {
@@ -414,9 +508,10 @@ module.exports.save_mistake = (
 					// message.
 					result ({
 						status: 500,
-						message: (
-							"Request failed. Try Again !"
-						)
+						message: `
+							Request failed.
+							Try Again !
+						`
 					});
 				// Otherwise.
 				} else {
@@ -424,10 +519,111 @@ module.exports.save_mistake = (
 					// message.
 					result ({
 						status: 200,
-						message: (
-							"Fault registration completed successfully !"
-						)
+						message: `
+							Fault registration
+							completed
+							successfully !
+						`
 					});
+				}
+			}
+		);
+	}
+}
+
+/**
+ * @description Sign in operation.
+ * @param {Object<String, any>} data
+ * 	The request's data.
+ * @param {!Function} result Called
+ * 	when the query is done with
+ * 	errors or not.
+ * @function sign_in
+ * @public
+ * @returns {void} void
+ */
+module.exports.sign_in = (
+	data, result
+) => {
+	// Whether one of these
+	// entries aren't valid.
+	if (
+		data.password.length === 0 ||
+		data.id.length === 0
+	) {
+		// Sends the success
+		// message.
+		result ({
+			status: 500,
+			message: `
+				Some field(s)
+				are empty.
+			`
+		});
+	// Otherwise.
+	} else {
+		// The sql request for
+		// checking an existing
+		// administrator into
+		// the database.
+		const check = `
+			SELECT \`email\`, \`password\`
+			FROM \`Administrators\`
+			WHERE \`password\` = ?
+			AND (\`pseudo\` = ? OR \`email\` = ?)
+			LIMIT 1;
+		`;
+		// This given administrator
+		// is it already exists on
+		// the database ?
+		pool.query (
+			check, [
+				data.password,
+				data.id,
+				data.id
+			], (
+				error, response
+			) => {
+				// whether some error(s)
+				// have been detected.
+				if (error) {
+					// Sends an error
+					// message.
+					result ({
+						status: 500,
+						message: `
+							Request failed.
+							Try Again !
+						`
+					});
+				// Otherwise.
+				} else {
+					// Wether the current
+					// administrator is
+					// already exists.
+					if (response.length) {
+						// Sends a success
+						// message.
+						result ({
+							server_data: response[0],
+							status: 200,
+							message: `
+								Connection
+								successful !
+							`
+						});
+					// Otherwise.
+					} else {
+						// Sends an error
+						// message.
+						result ({
+							status: 500,
+							message: `
+								The identifiers
+								given are invalid.
+							`
+						});
+					}
 				}
 			}
 		);
@@ -462,9 +658,10 @@ module.exports.override_contract = (
 		// Sends an error message.
 		result ({
 			status: 500,
-			message: (
-				"Some field(s) are empty."
-			)
+			message: `
+				Some field(s)
+				are empty."
+			`
 		});
 	// Otherwise.
 	} else {
@@ -480,9 +677,11 @@ module.exports.override_contract = (
 			// message.
 			result ({
 				status: 500,
-				message: (
-					"The start date must be less than the end date."
-				)
+				message: `
+					The start date must
+					be less than the
+					end date.
+				`
 			});
 		// Otherwise.
 		} else {
@@ -512,9 +711,10 @@ module.exports.override_contract = (
 					// message.
 					result ({
 						status: 500,
-						message: (
-							"Request failed. Try Again !"
-						)
+						message: `
+							Request failed.
+							Try Again !
+						`
 					});
 				// Otherwise.
 				} else {
@@ -522,9 +722,11 @@ module.exports.override_contract = (
 					// message.
 					result ({
 						status: 200,
-						message: (
-							"Contract renewal successfully completed !"
-						)
+						message: `
+							Contract renewal
+							successfully
+							completed !
+						`
 					});
 				}
 			});
@@ -559,9 +761,10 @@ module.exports.save_contract = (
 		// Sends an error message.
 		result ({
 			status: 500,
-			message: (
-				"Some field(s) are empty."
-			)
+			message: `
+				Some field(s)
+				are empty.
+			`
 		});
 	// Otherwise.
 	} else {
@@ -577,9 +780,11 @@ module.exports.save_contract = (
 			// message.
 			result ({
 				status: 500,
-				message: (
-					"The start date must be less than the end date."
-				)
+				message: `
+					The start date must
+					be less than the
+					end date.
+				`
 			});
 		// Otherwise.
 		} else {
@@ -601,9 +806,10 @@ module.exports.save_contract = (
 					// message.
 					result ({
 						status: 500,
-						message: (
-							"Request failed. Try Again !"
-						)
+						message: `
+							Request failed.
+							Try Again !
+						`
 					});
 				// Otherwise.
 				} else {
@@ -614,9 +820,11 @@ module.exports.save_contract = (
 						// Sends a warn message.
 						result ({
 							status: 500,
-							message: (
-								"This employee is already under contract."
-							)
+							message: `
+								This employee is
+								already under
+								contract.
+							`
 						});
 					// Otherwise.
 					} else {
@@ -648,9 +856,10 @@ module.exports.save_contract = (
 								// message.
 								result ({
 									status: 500,
-									message: (
-										"Request failed. Try Again !"
-									)
+									message: `
+										Request failed.
+										Try Again !
+									`
 								});
 							// Otherwise.
 							} else {
@@ -658,9 +867,11 @@ module.exports.save_contract = (
 								// message.
 								result ({
 									status: 200,
-									message: (
-										"Contract registration successfully completed !"
-									)
+									message: `
+										Contract registration
+										successfully
+										completed !
+									`
 								});
 							}
 						});
@@ -678,7 +889,7 @@ module.exports.save_contract = (
  * @param {!Function} result Called
  * 	when the query is done with
  * 	errors or not.
- * @function sign_in
+ * @function sign_up
  * @public
  * @returns {void} void
  */
@@ -696,9 +907,10 @@ module.exports.sign_up = (
 		// Sends an error message.
 		result ({
 			status: 500,
-			message: (
-				"Some field(s) are empty."
-			)
+			message: `
+				Some field(s)
+				are empty."
+			`
 		});
 	// Whether the passed email
 	// doesn't respect standard
@@ -711,9 +923,10 @@ module.exports.sign_up = (
 		// Sends an error message.
 		result ({
 			status: 500,
-			message: (
-				"Your email address is invalid."
-			)
+			message: `
+				Your email address
+				is invalid.
+			`
 		});
 	// Whether the password is
 	// not valid.
@@ -725,9 +938,10 @@ module.exports.sign_up = (
 		// message.
 		result ({
 			status: 500,
-			message: (
-				"You have not correctly confirmed your password."
-			)
+			message: `
+				You have not correctly
+				confirmed your password.
+			`
 		});
 	// Otherwise.
 	} else {
@@ -753,9 +967,10 @@ module.exports.sign_up = (
 				// message.
 				result ({
 					status: 500,
-					message: (
-						"Request failed. Try Again !"
-					)
+					message: `
+						Request failed.
+						Try Again !
+					`
 				});
 			// Otherwise.
 			} else {
@@ -777,9 +992,11 @@ module.exports.sign_up = (
 					// message.
 					result ({
 						status: 500,
-						message: (
-							"The informed user is already registered on the platform."
-						)
+						message: `
+							The informed user is
+							already registered
+							on the platform.
+						`
 					});
 				// Otherwise.
 				} else {
@@ -797,9 +1014,10 @@ module.exports.sign_up = (
 							// message.
 							result ({
 								status: 500,
-								message: (
-									"Failed request. Try Again !"
-								)
+								message: `
+									Request failed.
+									Try Again !
+								`
 							});
 						// Otherwise.
 						} else {
@@ -807,9 +1025,10 @@ module.exports.sign_up = (
 							// message.
 							result ({
 								status: 200,
-								message: (
-									"Successful registration !"
-								)
+								message: `
+									Successful
+									registration !
+								`
 							});
 						}
 					});
@@ -817,44 +1036,4 @@ module.exports.sign_up = (
 			}
 		});
 	}
-}
-
-// Sign in operation.
-module.exports.sign_in = (data, result) => {
-    // Checks inputs entry.
-    if (data.id.length === 0 || data.password.length === 0) result (new Object ({message: "De(s) champ(s) sont vide.", status: 500}));
-    // Otherwise.
-    else {
-        // Contains a sql request for checking an existing administrator into the database.
-        let check = "SELECT `email`, `password` FROM `Administrators` WHERE `password` = ? AND (`pseudo` = ? OR `email` = ?) LIMIT 1;";
-        // This given administrator is it already exists on the database ?
-        pool.query (check, [data.password, data.id, data.id], (error, response) => {
-            // Some error(s) have been detected.
-            if (error) result (new Object ({status: 500, message: "Requête échouée. Veuillez reéssayer !"}));
-            // Otherwise.
-            else {
-                // The current administrator is already exists.
-                if (response.length) result (new Object ({status: 200, message: "Connexion réussi !", server_data: response [0]}));
-                // Otherwise.
-                else result (new Object ({status: 500, message: "Les identifiants donnés sont invalide."}));
-            }
-        });
-    }
-}
-
-// Manages user gmail data sender.
-module.exports.send_gmail = function send_gmail (data, result) {
-	// Creates a transporter for Gmail sending and checks whether application is correctly connected to the passed transporter.
-	mailer.create_transporter (mailer.Services.GMAIL, data.source, "diosine98"); mailer.check_transporter (() => {
-		// Sends the current data to the target user google account.
-		mailer.send_mail (new Object ({from: data.source, to: data.address, subject: "Liste de(s) contrat(s) terminé(s).", html: data.html,
-			success: () => result (new Object ({status: 200, message: ("Le(s) contrat(s) terminé(s) ont bel et bien été envoyé(s) par Gmail" +
-				" sur le compte se trouvant à l'adresse: " + data.address + ". Veuillez consulter votre boîte de méssagerie Google pour voire le(s) donnée(s) envoyée(s).")
-			})), failed: () => result (new Object ({status: 500, message: ("Impossible d'envoyer les informations par Gmail" +
-				" sur le compte se trouvant à l'adresse: " + data.address + ". Veuillez vérifier les identifiants.")
-			}))
-		}));
-	}, () => result (new Object ({status: 500, message: ("L'application a des difficultées à envoyé les informations par Gmail" +
-		" sur le compte se trouvant à l'adresse: " + data.address)
-	})));
 }
