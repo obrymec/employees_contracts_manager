@@ -3,7 +3,7 @@
 * @fileoverview: The global variables for stylesheets.
 * @author: Obrymec - obrymecsprinces@gmail.com
 * @created: 2022-12-15
-* @updated: 2023-12-15
+* @updated: 2023-12-17
 * @file: variables.css
 * @supported: DESKTOP
 * @version: 0.0.1
@@ -14,6 +14,7 @@
 	--light-silver: rgb(150, 150, 150);
 	--light-white: rgb(235, 235, 235);
   --primary-color-300: #cf685d;
+	--primary-color-100: #572c27;
 	--primary-color: #FA8072;
 	--black-500: #343434;
 	--silver-500: #ccc;

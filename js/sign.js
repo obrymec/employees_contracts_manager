@@ -3,7 +3,7 @@
 * @fileoverview The controller to handle user sign in/up.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @created 2022-02-03
-* @updated 2023-12-15
+* @updated 2023-12-17
 * @supported DESKTOP
 * @version 0.0.2
 * @file sign.js
@@ -67,10 +67,22 @@ function show_sign_up_ () {
 	$ ("input").val ('');
 }
 
-// Called when this
-// page is fulled
-// loaded.
+// Called when this page
+// is fulled loaded.
 $ (() => {
+	// Whether the user is
+	// already conntected.
+	if (
+		String (
+			get_cookie ("user")
+		) !== "undefined"
+	) {
+		// Redirecting to the
+		// previous web page.
+		window.location.href = (
+			`${HOST_NAME}/stop-contract`
+		);
+	}
 	// Listens `click` event
 	// on sign in section.
 	$ ("div.sign-in-option")

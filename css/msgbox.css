@@ -3,7 +3,7 @@
 * @fileoverview: The message box theme stylesheet.
 * @author: Obrymec - obrymecsprinces@gmail.com
 * @created: 2022-12-15
-* @updated: 2023-12-15
+* @updated: 2023-12-17
 * @supported: DESKTOP
 * @file: msgbox.css
 * @version: 0.0.1
@@ -32,21 +32,23 @@ div.swal2-icon-content {
 
 /* Cancel button */
 button.swal2-cancel {
-  font-family: sans-serif;
-  user-select: none;
-}
-
-/* Confirm button */
-button.swal2-confirm {
-  background-color: var(--primary-color) !important;
+  box-shadow: 0 0 4px var(--primary-color-300) !important;
   font-family: sans-serif;
   user-select: none;
 }
 
 /* Title */
 h2.swal2-title {
+  color: var(--primary-color-100);
   font-family: sans-serif;
-  color: var(--black-500);
+  user-select: none;
+}
+
+/* Confirm button */
+button.swal2-confirm {
+  box-shadow: 0 0 4px var(--primary-color-300) !important;
+  background-color: var(--primary-color) !important;
+  font-family: sans-serif;
   user-select: none;
 }
 

@@ -3,7 +3,7 @@
 * @fileoverview Defines routes, paths and nodejs server configs with expressjs.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @created 2022-02-03
-* @updated 2023-12-15
+* @updated 2023-12-16
 * @supported DESKTOP
 * @file server.js
 * @version 0.0.2
@@ -158,7 +158,7 @@ app.get (
 // Save contract
 // operation.
 app.post (
-	"/save-contract", (_, res) => (
+	"/save-contract", (req, res) => (
 		controller.save_contract (
 			req.body, result => res.send (
 				result

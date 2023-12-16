@@ -3,7 +3,7 @@
 * @fileoverview: The main stylesheet of application.
 * @author: Obrymec - obrymecsprinces@gmail.com
 * @created: 2022-02-03
-* @updated: 2023-12-15
+* @updated: 2023-12-17
 * @supported: DESKTOP
 * @file: generic.css
 * @version: 0.0.3
@@ -17,6 +17,11 @@ div.active {
 /* Button hover and table header */
 thead.table-header, button:hover {
 	background-color: var(--primary-color);
+}
+
+/* Placeholders */
+textarea::placeholder, input::placeholder {
+	color: var(--light-silver) !important;
 }
 
 /* Table body light silver */
@@ -135,10 +140,11 @@ table.table-data {
 	width: 100.5%;
 }
 
-/* Text design */
+/* Text */
 textarea::placeholder,
 span, button, select,
-input::placeholder {
+input::placeholder,
+textarea, input {
 	font-family: sans-serif;
 	color: var(--black-500);
 	letter-spacing: 1.5px;

@@ -4,7 +4,7 @@
 * @author Obrymec - obrymecsprinces@gmail.com
 * @file controller.js
 * @created 2022-02-03
-* @updated 2023-12-15
+* @updated 2023-12-16
 * @supported DESKTOP
 * @version 0.0.2
 */
@@ -465,7 +465,7 @@ module.exports.save_mistake = (
 	// entries aren't valid.
 	if (
 		data.contract_id.toLowerCase ()
-			.includes ("aucun") ||
+			.includes ("none") ||
 		data.description.length === 0 ||
 		data.date.length === 0
 	) {

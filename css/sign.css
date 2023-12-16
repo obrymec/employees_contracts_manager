@@ -3,7 +3,7 @@
 * @fileoverview: The main stylesheet of application.
 * @author: Obrymec - obrymecsprinces@gmail.com
 * @created: 2022-02-03
-* @updated: 2023-12-15
+* @updated: 2023-12-17
 * @supported: DESKTOP
 * @file: sign.css
 * @version: 0.0.3
@@ -91,10 +91,13 @@ div.sign-big-container {
 /* Inputs */
 input {
 	border: 1px solid var(--silver);
+	font-family: sans-serif;
+	letter-spacing: 1.5px;
 	padding-right: 15px;
 	padding-left: 15px;
 	border-radius: 3px;
 	margin-top: 10px;
+	font-size: 16px;
 	outline: none;
 	width: 94.5%;
 	height: 30px;

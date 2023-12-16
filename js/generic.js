@@ -3,15 +3,16 @@
 * @fileoverview The base controller for all others controllers.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @created 2022-02-03
-* @updated 2023-12-15
+* @updated 2023-12-17
 * @supported DESKTOP
 * @file generic.js
 * @version 0.0.3
 */
 
 // Attributes.
-const HOST_NAME = "http://localhost:5200";
+var HOST_NAME = "http://localhost:5200";
 var is_pressed = false;
+let is_low = false;
 // var HOST_NAME = (
 // 	`${
 // 		window.location
@@ -48,39 +49,6 @@ function generate_dropdown_values (
 }
 
 /**
- * @description Checks screen active
- * 	resolution.
- * @function checkScreenResolution
- * @public
- * @returns {void} void
- */
-function checkScreenResolution () {
-	// Whether the current
-	// window size is less
-	// than 1024.
-	if (
-		window.innerWidth < 1024
-	) {
-		// Shows a warn message.
-		sweetAlert (
-			`This application doesn't
-			 support low resolution
-			 screens. Please resize
-			 your screen to a resolution
-			 bigger than or equal to
-			 (1024 x 768) pixels.`,
-			 "info", () => {}, false,
-			 "Information"
-		);
-	// Otherwise.
-	} else {
-		// Closes the active
-		// modal box.
-		Swal.close ();
-	}
-}
-
-/**
  * @description Displays a message
  * 	inside a modal box.
  * @param {String} message The text
@@ -93,8 +61,11 @@ function checkScreenResolution () {
  * @param {boolean=} showConfirm
  * 	Whether we want to show the
  * 	confirm button.
- * @param {String} title The popup
+ * @param {String=} title The popup
  * 	title text.
+ * @param {boolean=} outsideClick
+ * 	Whether we can click outside
+ * 	to close the modal popup.
  * @function sweetAlert
  * @public
  * @returns {void} void
@@ -104,12 +75,14 @@ function sweetAlert (
 	type = "error",
 	confirm = () => {},
 	showConfirm = true,
-	title = "Server Message"
+	title = "Server Message",
+	outsideClick = true
 ) {
 	// Displays the target
 	// message text inside
 	// a popup.
 	Swal.fire ({
+		allowOutsideClick: outsideClick,
 		showConfirmButton: showConfirm,
 		confirmButtonText: "OK",
 		focusConfirm: false,
@@ -146,25 +119,70 @@ function generate_employee_table_data (
 			class = "table-body silver"
 		>
 			<td>
-				<label>${
+				<span>${
 					employee_data.id
-				}</label>
+				}</span>
 			</td>
 			<td>
-				<label>${
+				<span>${
 					employee_data.name
 						.toUpperCase ()
-				}</label>
+				}</span>
 			</td>
 			<td>
-				<label>${
+				<span>${
 					str_capitalize (
 						employee_data.surname
 					)
-				}</label>
+				}</span>
 			</td>
 		</tbody>
 	`);
+}
+
+/**
+ * @description Checks screen active
+ * 	resolution.
+ * @function checkScreenResolution
+ * @public
+ * @returns {void} void
+ */
+function checkScreenResolution () {
+	// Whether the current
+	// window size is less
+	// than 1024.
+	if (
+		window.innerWidth < 1024
+	) {
+		// Whether the screen size
+		// wasn't low.
+		if (!is_low) {
+			// Sets the low state.
+			is_low = true;
+			// Shows a warn message.
+			sweetAlert (
+				`This application doesn't
+				 support low resolution
+				 screens. Please resize
+				 your screen to a resolution
+				 bigger than or equal to
+				 (1024 x 768) pixels.`,
+				 "info", () => {}, false,
+				 "Information", false
+			);
+		}
+	// Otherwise.
+	} else {
+		// Whether the screen
+		// size was low.
+		if (is_low) {
+			// Sets the low state.
+			is_low = false;
+			// Closes the active
+			// modal box.
+			Swal.close ();
+		}
+	}
 }
 
 /**
@@ -262,34 +280,34 @@ function generate_contract_table_data (
 			class = "table-body silver"
 		>
 			<td>
-				<label>${data.id}</label>
+				<span>${data.id}</span>
 			</td>
 			<td>
-				<label>${
+				<span>${
 					data.name.toUpperCase ()
-				}</label>
+				}</span>
 			</td>
 			<td>
-				<label>${
+				<span>${
 					str_capitalize (
 						data.surname
 					)
-				}</label>
+				}</span>
 			</td>
 			<td>
-				<label>${
+				<span>${
 					data.start_date
-				}</label>
+				}</span>
 			</td>
 			<td>
-				<label>${
+				<span>${
 					data.end_date
-				}</label>
+				}</span>
 			</td>
 			<td>
-				<label>${
+				<span>${
 					data.duration
-				} mois</label>
+				} month(s)</span>
 			</td>
 		</tbody>
 	`);
@@ -496,7 +514,7 @@ function post_request (data, is_sign) {
 						// this request is done.
 						sweetAlert (
 							response.message,
-							"error", () => {
+							"success", () => {
 								// Whether `loaded` event
 								// is listening.
 								if (
@@ -544,8 +562,7 @@ function post_request (data, is_sign) {
 	}
 }
 
-// When the page is
-// fulled loaded.
+// When the page is fulled loaded.
 $ (() => {
 	// Checks the current screen
 	// resolution.
