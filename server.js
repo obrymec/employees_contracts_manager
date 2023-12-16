@@ -3,7 +3,7 @@
 * @fileoverview Defines routes, paths and nodejs server configs with expressjs.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @created 2022-02-03
-* @updated 2023-12-03
+* @updated 2023-12-15
 * @supported DESKTOP
 * @file server.js
 * @version 0.0.2
@@ -16,7 +16,7 @@ const express = require ("express");
 
 // Attributes.
 const app = express ();
-const port = 5000;
+const port = 5200;
 
 // App configurations.
 app.use (parser.json ());

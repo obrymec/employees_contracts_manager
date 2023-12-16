@@ -3,20 +3,11 @@
 * @fileoverview: The main stylesheet of application.
 * @author: Obrymec - obrymecsprinces@gmail.com
 * @created: 2022-02-03
-* @updated: 2023-11-19
+* @updated: 2023-12-15
 * @supported: DESKTOP
 * @file: sign.css
 * @version: 0.0.3
 */
-
-/* Colors theme */
-:root {
-	--primary-color: #FA8072;
-	--black-500: #343434;
-	--silver-500: #ccc;
-	--silver: silver;
-	--white: #FFF;
-}
 
 /* Button hover */
 button:hover {

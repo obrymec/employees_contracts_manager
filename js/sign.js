@@ -3,7 +3,7 @@
 * @fileoverview The controller to handle user sign in/up.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @created 2022-02-03
-* @updated 2023-11-26
+* @updated 2023-12-15
 * @supported DESKTOP
 * @version 0.0.2
 * @file sign.js
@@ -79,19 +79,6 @@ $ (() => {
 	// on sign up section.
 	$ ("div.sign-up-option")
 		.click (show_sign_up_);
-	// Whether the user
-	// isn't connected.
-	if (
-		String (
-			get_cookie ("user")
-		) === "undefined"
-	) {
-		// Redirecting to
-		// sign web page.
-		window.location.href = (
-			HOST_NAME
-		);
-	}
 	// Listens `click` event
 	// on sign in button.
 	$ ("button#sign-in-btn").click (

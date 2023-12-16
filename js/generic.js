@@ -3,23 +3,23 @@
 * @fileoverview The base controller for all others controllers.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @created 2022-02-03
-* @updated 2023-12-03
+* @updated 2023-12-15
 * @supported DESKTOP
 * @file generic.js
 * @version 0.0.3
 */
 
 // Attributes.
-//const HOST_NAME = "http://localhost:5000";
+const HOST_NAME = "http://localhost:5200";
 var is_pressed = false;
-var HOST_NAME = (
-	`${
-		window.location
-			.href.split (
-				".com"
-			)[0]
-	}.com`
-);
+// var HOST_NAME = (
+// 	`${
+// 		window.location
+// 			.href.split (
+// 				".com"
+// 			)[0]
+// 	}.com`
+// );
 
 /**
  * @description Manages dropdowns values.
@@ -45,6 +45,87 @@ function generate_dropdown_values (
 			}
 		</option>
 	`);
+}
+
+/**
+ * @description Checks screen active
+ * 	resolution.
+ * @function checkScreenResolution
+ * @public
+ * @returns {void} void
+ */
+function checkScreenResolution () {
+	// Whether the current
+	// window size is less
+	// than 1024.
+	if (
+		window.innerWidth < 1024
+	) {
+		// Shows a warn message.
+		sweetAlert (
+			`This application doesn't
+			 support low resolution
+			 screens. Please resize
+			 your screen to a resolution
+			 bigger than or equal to
+			 (1024 x 768) pixels.`,
+			 "info", () => {}, false,
+			 "Information"
+		);
+	// Otherwise.
+	} else {
+		// Closes the active
+		// modal box.
+		Swal.close ();
+	}
+}
+
+/**
+ * @description Displays a message
+ * 	inside a modal box.
+ * @param {String} message The text
+ * 	to display.
+ * @param {String=} type The message
+ * 	type.
+ * @param {!Function=} confirm The
+ * 	method to call when we click
+ * 	on the confirm button.
+ * @param {boolean=} showConfirm
+ * 	Whether we want to show the
+ * 	confirm button.
+ * @param {String} title The popup
+ * 	title text.
+ * @function sweetAlert
+ * @public
+ * @returns {void} void
+ */
+function sweetAlert (
+	message,
+	type = "error",
+	confirm = () => {},
+	showConfirm = true,
+	title = "Server Message"
+) {
+	// Displays the target
+	// message text inside
+	// a popup.
+	Swal.fire ({
+		showConfirmButton: showConfirm,
+		confirmButtonText: "OK",
+		focusConfirm: false,
+		focusCancel: false,
+		html: message,
+		icon: type,
+		title
+	}).then (res => {
+    // Whether the operation
+    // is confirmed.
+    if (res.isConfirmed) {
+      // Calls the passed
+			// callback method.
+			confirm ();
+    }
+  });
 }
 
 /**
@@ -107,10 +188,12 @@ function get_request (data) {
 			// status is `500`.
 			if (response.status === 500) {
 				// Makes a warn.
-				alert (response.message);
-				// Reloads the current
-				// web page.
-				window.location.reload ();
+				sweetAlert (
+					response.message,
+					"error", () => (
+						window.location.reload ()
+					)
+				);
 			// Otherwise.
 			} else {
 				// Generating the associated
@@ -125,12 +208,12 @@ function get_request (data) {
 		// Request failed.
 		}, () => {
 			// Makes a warn.
-			alert (
-				"Request failed. Try Again !"
+			sweetAlert (
+				"Request failed. Try Again !",
+				"error", () => (
+					window.location.reload ()
+				)
 			);
-			// Reloads the current
-			// web page.
-			window.location.reload ();
 		}
 	);
 }
@@ -371,13 +454,17 @@ function post_request (data, is_sign) {
 				if (
 					response.status === 500
 				) {
-					// Makes a warn.
-					alert (response.message);
 					// Enables button.
 					is_pressed = false;
-					// Changes his text.
-					$ (data.button_id).text (
-						old_button_text
+					// Makes a warn.
+					sweetAlert (
+						response.message,
+						"error", () => (
+							$ (data.button_id)
+								.text (
+									old_button_text
+								)
+						)
 					);
 				// Otherwise.
 				} else {
@@ -388,8 +475,8 @@ function post_request (data, is_sign) {
 					$ (data.button_id).text (
 						old_button_text
 					);
-					// No message key
-					// found.
+					// Whether no message key
+					// is found.
 					if (
 						response.hasOwnProperty (
 							"data"
@@ -407,30 +494,36 @@ function post_request (data, is_sign) {
 						// Warns the user and calls
 						// `loaded` method when
 						// this request is done.
-						alert (response.message);
-						// Whether `loaded` event
-						// is listening.
-						if (
-							typeof data.loaded
-								=== "function"
-						) {
-							// Calls it.
-							data.loaded (response);
-						}
-						// Whether the request
-						// link is defined.
-						if (
-							data.hasOwnProperty (
-								"page_link"
-							) &&
-							data.page_link.length > 0
-						) {		
-							// Go to a web page
-							// whether needed.
-							window.location.href = (
-								`${HOST_NAME}/${data.page_link}`
-							);
-						}
+						sweetAlert (
+							response.message,
+							"error", () => {
+								// Whether `loaded` event
+								// is listening.
+								if (
+									typeof data.loaded
+										=== "function"
+								) {
+									// Calls it.
+									data.loaded (response);
+								}
+								// Whether the request
+								// link is defined.
+								if (
+									data.hasOwnProperty (
+										"page_link"
+									) &&
+									data.page_link.length > 0
+								) {		
+									// Go to a web page
+									// whether needed.
+									window.location.href = (
+										`${HOST_NAME}/${
+											data.page_link
+										}`
+									);
+								}
+							}
+						);
 					}
 				}
 			// Request failed.
@@ -438,13 +531,13 @@ function post_request (data, is_sign) {
 				// Enables the button.
 				is_pressed = false;
 				// Makes a warn.
-				alert (
-					"Request failed. Try Again !"
-				);
-				// Restores his old
-				// text content.
-				$ (data.button_id).text (
-					old_button_text
+				sweetAlert (
+					"Request failed. Try Again !",
+					"error", () => (
+						$ (data.button_id).text (
+							old_button_text
+						)
+					)
 				);
 			}
 		);
@@ -454,6 +547,13 @@ function post_request (data, is_sign) {
 // When the page is
 // fulled loaded.
 $ (() => {
+	// Checks the current screen
+	// resolution.
+	checkScreenResolution ();
+	// Listens window resizement
+	window.addEventListener (
+		"resize", checkScreenResolution
+	);
 	// Listens `click` event
 	// on all detected
 	// refresh buttons.
