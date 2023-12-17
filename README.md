@@ -1,61 +1,95 @@
 # Employees Contracts Manager
-![](https://img.shields.io/badge/node.js-%2016.13.1-yellowgreen)
-![](https://img.shields.io/badge/nodemon-%5E2.0.20-yellowgreen)
-![](https://img.shields.io/badge/express.js-%204.17.1-orange)
-![](https://img.shields.io/badge/javascript-%20ES5-orange)
-![](https://img.shields.io/badge/json-%201.0-lightgrey)
-![](https://img.shields.io/badge/mysql-%208.0-green)
-![](https://img.shields.io/badge/jquery-%201.5-blue)
-![](https://img.shields.io/badge/sql-%2013.0-orange)
-![](https://img.shields.io/badge/css-%203-lightgrey)
-![](https://img.shields.io/badge/html-%205-blue)
+![Employees Contracts Manager](https://img.shields.io/badge/employees%20contracts%20manager-1997B5.svg?style=for-the-badge)
+![Full Stack Development](https://img.shields.io/badge/full%20stack%20development-FF5722.svg?style=for-the-badge)
+![Web Application](https://img.shields.io/badge/web%20application-233B4D?style=for-the-badge)
+![Pwa](https://img.shields.io/badge/pwa-7D4698.svg?style=for-the-badge)
 
-This small project is an academy project. It was developed with Native Web Development Languages. The project is subdivided in two parts such as: Front-end and Back-end. In Front-end, I've built all user interfaces using basic HTML and CSS to draw layouts, controls and JavaScript to make some feedback with users and HTTP requests to Back-end via Node.js. In Back-end, a simple Node.js API is developed to get and treat client requests. Express.js is used as a server to run this project. Note that each data is stored in a remote MySQL (PHP My Admin) database hosted on Internet. The communication between Front-end and Back-end uses AJAX and data transfer uses JSON language. Sometime, a page reloading is required to make certain HTTP requests.
+This small project is academic. It was developed with Native Web Development
+Languages. The project is subdivided in two parts such as: Front-end and
+Back-end. In Front-end, I've built all user interfaces using basic HTML and
+CSS to draw layouts, controls and JavaScript to make some feedback with users
+and HTTP requests to Back-end via Node.js. In Back-end, a simple Node.js API
+is developed to get and treat client requests. Express.js is used as a server
+to run this project. Note that each data is stored in a remote MySQL
+(PHP My Admin) database hosted on Internet. The communication between
+Front-end and Back-end uses AJAX and data transfer uses JSON language.
+Sometime, a page reloading is required to make certain HTTP requests.
 
-## Final result
-This is the final result of the project:<br/><br/>
-[![Watch the video](https://img.youtube.com/vi/MCtNSq67pv8/maxresdefault.jpg)](https://youtu.be/MCtNSq67pv8)
+## Table of contents
+1. [Access link](#link)
+2. [Reference](#ref)
+3. [Final result](#result)
+    1. [Video](#video)
+    2. [Screenshots](#images)
+4. [Project installation](#install)
+    1. [Nodejs installation](#node-install)
+    2. [Sources code cloning](#cloning)
+    3. [Dependencies installation](#dev-install)
+    4. [Project execution](#running)
 
-## Project installation
-### <u>Install curl</u>:
-```sh
-sudo apt install curl
-```
+## Access link <a id = "link"></a>
+The project is already hosted on web and can be
+accessible through one of these links below :
+- https://employees-contracts-manager.onrender.com
 
-### <u>Install nodejs</u>:
+## Reference <a id = "ref"></a>
+The project can be found via the link below :
+- https://gitlab.com/obrymec/employees_contracts_manager
+
+## Final result <a id = "result"></a>
+This is the final result of the project :
+### Video <a id = "video"></a>
+[![Watch the project's video](https://img.youtube.com/vi/MCtNSq67pv8/maxresdefault.jpg)](https://youtu.be/MCtNSq67pv8)
+
+### Screenshots <a id = "images"></a>
+![First render](./assets/render/render_1.png)
+![Second render](./assets/render/render_2.png)
+![Third render](./assets/render/render_3.png)
+![Fourth render](./assets/render/render_4.png)
+
+## Project installation <a id = "install"></a>
+👉 If you want to get project sources code, make sure
+to have <i><a href = "https://nodejs.org/en/download">
+NodeJs</a></i> already installed in your machine. If
+it isn't the case, you can install it from <i>
+<a href = "https://github.com/nvm-sh/nvm">nvm</i></a>.
+
+### Nodejs installation <a id = "node-install"></a>
 ```sh
 cd ~;\
-curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh;\
-sudo bash /tmp/nodesource_setup.sh;\
-sudo apt install nodejs;\
-node -v
+sudo apt install curl;\
+curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash;\
+source ~/.bashrc;\
+nvm --version;\
+nvm install --lts;\
+node --version;\
+npm install yarn --global;\
+yarn --version
 ```
 
-### <u>Install yarn with npm</u>:
-NPM (Node Package Manager) is the default program that is automatically installed on Nodejs installation. You can use NPM directly when Nodejs is already installed.
-```sh
-sudo npm install yarn --global
-```
-
-### <u>Project cloning</u>:
+### Sources code cloning <a id = "cloning"></a>
 ```sh
 git clone git@github.com:obrymec/employees_contracts_manager.git employees_contracts_manager/
 ```
 
-### <u>Install project dependencies</u>:
-Go to the root folder of the project and run:
+### Dependencies installation <a id = "dev-install"></a>
+Go to the root folder of the project sources
+and run :
 ```sh
 yarn install
 ```
 
-### <u>Run project</u>:
-Go to the root folder of the project and run:
+### Project execution <a id = "running"></a>
+Go to the root folder of the project and
+run :
 ```sh
 yarn start
 ```
-Go to your favorite browser and tap on the search bar the following link:
+
+Then, open your favorite browser and tap
+on the search bar, the following link :
 ```sh
-http://localhost:5000/
+http://localhost:5200/
 ```
 
 Enjoy :)

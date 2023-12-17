@@ -2,10 +2,20 @@
   "description": "A simple web app for employees contracts management.",
   "author": "Obrymec - obrymecsprinces@gmail.com",
   "name": "employees-contracts-manager",
-  "main": "server.js",
-  "version": "0.3.4",
+  "main": "./server.js",
+  "version": "1.0.1",
   "private": "false",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/obrymec/employees_contracts_manager/issues"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "repository": {
+    "url": "https://github.com/obrymec/employees_contracts_manager.git",
+    "type": "git"
+  },
   "scripts": {
     "dev": "nodemon ./server.js",
     "start": "node ./server.js"
@@ -15,7 +25,6 @@
     "body-parser": "^1.19.2",
     "nodemailer": "^6.7.3",
     "express": "^4.17.3",
-    "nodemon": "^2.0.15",
     "mysql": "^2.18.1"
   }
 }
