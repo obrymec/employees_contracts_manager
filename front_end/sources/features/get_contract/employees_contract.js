@@ -4,7 +4,7 @@
 * @author Obrymec - obrymecsprinces@gmail.com
 * @file employees_contract.js
 * @created 2022-02-03
-* @updated 2023-11-26
+* @updated 2023-12-21
 * @supported DESKTOP
 * @version 0.0.2
 */
@@ -28,11 +28,9 @@ $ (() => {
 	// Loads employees
 	// under contract.
 	get_request ({
-		operation_link: (
-			"run-contracts"
-		),
+		operation_link: "run-contracts",
 		callback: datum => (
-			generate_dropdown_values (
+			generate_contract_table_data (
 				datum
 			)
 		)
