@@ -3,24 +3,24 @@
 * @fileoverview The base controller for all others controllers.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @created 2022-02-03
-* @updated 2023-12-17
+* @updated 2023-12-21
 * @supported DESKTOP
 * @file generic.js
 * @version 0.0.3
 */
 
 // Attributes.
-var HOST_NAME = "http://localhost:5200";
+// var HOST_NAME = "http://localhost:5200";
 var is_pressed = false;
 let is_low = false;
-// var HOST_NAME = (
-// 	`${
-// 		window.location
-// 			.href.split (
-// 				".com"
-// 			)[0]
-// 	}.com`
-// );
+var HOST_NAME = (
+	`${
+		window.location
+			.href.split (
+				".com"
+			)[0]
+	}.com`
+);
 
 /**
  * @description Manages dropdowns values.
