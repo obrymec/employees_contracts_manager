@@ -30,7 +30,7 @@ $ (() => {
 	get_request ({
 		operation_link: "run-contracts",
 		callback: datum => (
-			generate_contract_table_data (
+			generate_employee_table_data (
 				datum
 			)
 		)
