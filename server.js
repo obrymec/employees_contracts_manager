@@ -3,20 +3,25 @@
 * @fileoverview Defines routes, paths and nodejs server configs with expressjs.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @created 2022-02-03
-* @updated 2023-12-16
+* @updated 2023-12-21
 * @supported DESKTOP
 * @file server.js
 * @version 0.0.2
 */
 
 // Plugin dependencies.
-const controller = require ("./js/controller.js");
+const controller = require ("./back_end/sources/api.js");
 const parser = require ("body-parser");
 const express = require ("express");
 
 // Attributes.
 const app = express ();
 const port = 5200;
+const options = {
+	root: (
+		`${__dirname}/front_end`
+	)
+};
 
 // App configurations.
 app.use (parser.json ());
@@ -27,15 +32,15 @@ app.use (
 );
 app.use (
 	express.static (
-		__dirname
+		options.root
 	)
 );
 
 // App routes.
 app.get ('/', (_, res) => (
 	res.sendFile (
-		"html/sign.html",
-		{root: __dirname}
+		"./sources/features/sign_in_up/sign.html",
+		options
 	)
 ));
 // Stops a contract
@@ -43,8 +48,8 @@ app.get ('/', (_, res) => (
 app.get (
 	"/stop-contract", (_, res) => (
 		res.sendFile (
-			"html/stop_contract.html",
-			{root: __dirname}
+			"./sources/features/off_contract/stop_contract.html",
+			options
 		)
 	)
 );
@@ -53,8 +58,8 @@ app.get (
 app.get (
 	"/running-contracts", (_, res) => (
 		res.sendFile (
-			"html/running_contracts.html",
-			{root: __dirname}
+			"./sources/features/get_running/running_contracts.html",
+			options
 		)
 	)
 );
@@ -63,8 +68,8 @@ app.get (
 app.get (
 	"/expired-contracts", (_, res) => (
 		res.sendFile (
-			"html/expired_contracts.html",
-			{root: __dirname}
+			"./sources/features/get_expired/expired_contracts.html",
+			options
 		)
 	)
 );
@@ -73,8 +78,8 @@ app.get (
 app.get (
 	"/add-contract", (_, res) => (
 		res.sendFile (
-			"html/save_contract.html",
-			{root: __dirname}
+			"./sources/features/put_contract/save_contract.html",
+			options
 		)
 	)
 );
@@ -83,8 +88,8 @@ app.get (
 app.get (
 	"/add-mistake", (_, res) => (
 		res.sendFile (
-			"html/save_mistake.html",
-			{root: __dirname}
+			"./sources/features/put_mistake/save_mistake.html",
+			options
 		)
 	)
 );
@@ -93,8 +98,8 @@ app.get (
 app.get (
 	"/bad-employees", (_, res) => (
 		res.sendFile (
-			"html/employees_mistake.html",
-			{root: __dirname}
+			"./sources/features/get_mistake/employees_mistake.html",
+			options
 		)
 	)
 );
@@ -103,8 +108,8 @@ app.get (
 app.get (
 	"/busy-employees", (_, res) => (
 		res.sendFile (
-			"html/employees_contract.html",
-			{root: __dirname}
+			"./sources/features/get_contract/employees_contract.html",
+			options
 		)
 	)
 );
@@ -113,8 +118,8 @@ app.get (
 app.get (
 	"/override-contract", (_, res) => (
 		res.sendFile (
-			"html/override_contract.html",
-			{root: __dirname}
+			"./sources/features/set_contract/override_contract.html",
+			options
 		)
 	)
 );
@@ -123,8 +128,8 @@ app.get (
 app.get (
 	"/employee-mistakes", (_, res) => (
 		res.sendFile (
-			"html/employee_mistakes.html",
-			{root: __dirname}
+			"./sources/features/get_mistakes/employee_mistakes.html",
+			options
 		)
 	)
 );

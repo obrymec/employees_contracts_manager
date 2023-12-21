@@ -1,31 +1,31 @@
 <!--
 	@project: Employees Contracts - https://employees-contracts-manager.onrender.com/
 	@author: Obrymec - obrymecsprinces@gmail.com
-	@fileoverview: The renew contracts.
-	@file: override_contracts.html
+	@fileoverview: The mistakes of an employee.
+	@file: employee_mistakes.html
 	@created: 2022-02-03
-	@updated: 2023-12-17
+	@updated: 2023-12-21
 	@supported: DESKTOP
 	@version: 0.0.2
 -->
 
-<!--Global override contract page-->
+<!--Global employee mistakes page-->
 <html lang = "en" dir = "ltr">
-	<!--Override contract page header-->
+	<!--Employee mistakes page header-->
 	<head>
 		<!--Title-->
-		<title>Renew a contract</title>
+		<title>Misconducts of an employee</title>
 		<!--Loading the page style-->
 		<link
-			href = "./css/variables.css"
+			href = "./public/variables.css"
 			rel = "stylesheet"
 		/>
 		<link
-			href = "./css/generic.css"
+			href = "./public/generic.css"
 			rel = "stylesheet"
 		/>
 		<link
-			href = "./css/msgbox.css"
+			href = "./public/msgbox.css"
 			rel = "stylesheet"
 		/>
 		<!--Defined page charset: UTF-8-->
@@ -36,12 +36,12 @@
 		/>
 		<!--App favicon-->
 		<link
-			href = "./favicon.ico"
+			href = "./public/favicon.ico"
 			rel = "shortcut icon"
 			type = "image/ico"
 		/>
 		<link
-			href = "./favicon.ico"
+			href = "./public/favicon.ico"
 			type = "image/ico"
 			rel = "icon	"
 		/>
@@ -154,14 +154,14 @@
 					<!--Employee mistakes option-->
 					<div
 						title = "View the fault(s) committed by a given employee."
-						class = "employee-mistakes option"
+						class = "employee-mistakes option active"
 					>
 						<span>Employee's faults</span>
 					</div>
 					<!--Override contract option-->
 					<div
-						class = "override-contract option active"
 						title = "Renew an expired contract."
+						class = "override-contract option"
 					>
 						<span>Renew a contract</span>
 					</div>
@@ -181,21 +181,39 @@
 				<!--Header title-->
 				<div class = "header-title">
 					<span>
-						<strong>Renew a contract</strong>
+						<strong>Employee's faults</strong>
 					</span>
 				</div>
 				<!--Page content-->
 				<div class = "page-content">
 					<!--UI controls container-->
 					<div class = "ui-controls">
-						<!--Expired contracts-->
+						<!--Table data container-->
+						<table class = "table-data">
+							<!--Table header-->
+							<thead class = "table-header">
+								<!--Id-->
+								<th><span>ID</span></th>
+								<!--Type-->
+								<th><span>Type</span></th>
+								<!--Date-->
+								<th><span>Date</span></th>
+								<!--Description-->
+								<th><span>Description</span></th>
+							</thead>
+						</table>
+						<!--Refresh button-->
+						<button
+							id = "employee-mistakes-btn"
+							title = "Refresh the page."
+						>
+							Refresh the page
+						</button><br/><br/>
+						<!--Employees contract-->
 						<div>
-							<!--Expired employees label text-->
-							<span>
-								Employee(s) who have completed
-								their contract:
-							</span><br/>
-							<!--Default dropdown value-->
+							<!--Hook label-->
+							<span>Offending employee(s):</span><br/>
+							<!--Employees list-->
 							<select
 								title = "Select an employee."
 								id = "dropdown"
@@ -205,79 +223,41 @@
 									None
 								</option>
 							</select>
-						</div><br/>
-						<!--Start date-->
-						<div>
-							<!--Label-->
-							<span>Hiring date:</span><br/>
-							<!--Input-->
-							<input
-								title = "Enter the date of hire."
-								placeholder = "Hiring date"
-								type = "date"
-								id = "sdate"
-							/>
-						</div><br/>
-						<!--End date-->
-						<div>
-							<!--Label-->
-							<span>End date:</span><br/>
-							<!--Input-->
-							<input
-								title = "Put the end date."
-								placeholder = "End date"
-								type = "date"
-								id = "edate"
-							/>
-						</div><br/>
-						<!--Time-->
-						<div>
-							<!--Label-->
-							<span>Duration:</span><br/>
-							<!--Input-->
-							<input
-								title = "Specify the duration of the contract."
-								placeholder = "Contract length"
-								type = "number"
-								id = "time"
-								value = '0'
-								min = '0'
-							/>
 						</div>
-						<!--Override contrat button-->
+						<!--Shows mistakes button-->
 						<button
-							title = "Renew this contract."
-							id = "override-contract-btn"
+							title = "Show the fault(s) committed by this employee."
+							id = "show-mistakes-btn"
 						>
-							Renew
+							Show fault(s)
 						</button>
 					</div>
-					<!--Delusion-->
+					<!--Dilusion-->
 					<div class = "empty-section"></div>
 				</div>
 			</div>
 		</div>
 		<!--External dependencies-->
 		<script
+			src = "./sources/widgets/msgbox.js"
 			type = "text/javascript"
-			src = "./js/msgbox.js"
 		></script>
 		<script
+			src = "./sources/utils/jquery.js"
 			type = "text/javascript"
-			src = "./js/jquery.js"
 		></script>
 		<!--Custom dependencies-->
 		<script
-			src = "./js/basics_tools.js"
+			src = "./sources/utils/basics_tools.js"
 			type = "text/javascript"
 		></script>
 		<script
+			src = "./sources/utils/generic.js"
 			type = "text/javascript"
-			src = "./js/generic.js"
 		></script>
 		<!--Controller-->
 		<script
-			src = "./js/override_contract.js"
+			src = "./sources/features/get_mistakes/employee_mistakes.js"
 			type = "text/javascript"
 		></script>
 	</body>

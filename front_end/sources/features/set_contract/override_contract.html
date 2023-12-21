@@ -1,31 +1,31 @@
 <!--
 	@project: Employees Contracts - https://employees-contracts-manager.onrender.com/
-	@fileoverview: The formulary to stop a contract.
 	@author: Obrymec - obrymecsprinces@gmail.com
-	@file: stop_contract.html
+	@fileoverview: The renew contracts.
+	@file: override_contracts.html
 	@created: 2022-02-03
-	@updated: 2023-12-17
+	@updated: 2023-12-21
 	@supported: DESKTOP
 	@version: 0.0.2
 -->
 
-<!--Global stop contract page-->
+<!--Global override contract page-->
 <html lang = "en" dir = "ltr">
-	<!--Stop contract page header-->
+	<!--Override contract page header-->
 	<head>
 		<!--Title-->
-		<title>Stop a contract</title>
+		<title>Renew a contract</title>
 		<!--Loading the page style-->
 		<link
-			href = "./css/variables.css"
+			href = "./public/variables.css"
 			rel = "stylesheet"
 		/>
 		<link
-			href = "./css/generic.css"
+			href = "./public/generic.css"
 			rel = "stylesheet"
 		/>
 		<link
-			href = "./css/msgbox.css"
+			href = "./public/msgbox.css"
 			rel = "stylesheet"
 		/>
 		<!--Defined page charset: UTF-8-->
@@ -36,12 +36,12 @@
 		/>
 		<!--App favicon-->
 		<link
-			href = "./favicon.ico"
+			href = "./public/favicon.ico"
 			rel = "shortcut icon"
 			type = "image/ico"
 		/>
 		<link
-			href = "./favicon.ico"
+			href = "./public/favicon.ico"
 			type = "image/ico"
 			rel = "icon	"
 		/>
@@ -105,7 +105,7 @@
 					<!--Stop contract option-->
 					<div
 						title = "Arrest a contract employee."
-						class = "stop-contract option active"
+						class = "stop-contract option"
 					>
 						<span>Stop a contract</span>
 					</div>
@@ -160,8 +160,8 @@
 					</div>
 					<!--Override contract option-->
 					<div
+						class = "override-contract option active"
 						title = "Renew an expired contract."
-						class = "override-contract option"
 					>
 						<span>Renew a contract</span>
 					</div>
@@ -181,18 +181,21 @@
 				<!--Header title-->
 				<div class = "header-title">
 					<span>
-						<strong>Stop a contract</strong>
+						<strong>Renew a contract</strong>
 					</span>
 				</div>
 				<!--Page content-->
 				<div class = "page-content">
 					<!--UI controls container-->
 					<div class = "ui-controls">
-						<!--Employees contract-->
+						<!--Expired contracts-->
 						<div>
-							<!--Label-->
-							<span>Contracted employee(s):</span><br/>
-							<!--Input-->
+							<!--Expired employees label text-->
+							<span>
+								Employee(s) who have completed
+								their contract:
+							</span><br/>
+							<!--Default dropdown value-->
 							<select
 								title = "Select an employee."
 								id = "dropdown"
@@ -202,41 +205,79 @@
 									None
 								</option>
 							</select>
+						</div><br/>
+						<!--Start date-->
+						<div>
+							<!--Label-->
+							<span>Hiring date:</span><br/>
+							<!--Input-->
+							<input
+								title = "Enter the date of hire."
+								placeholder = "Hiring date"
+								type = "date"
+								id = "sdate"
+							/>
+						</div><br/>
+						<!--End date-->
+						<div>
+							<!--Label-->
+							<span>End date:</span><br/>
+							<!--Input-->
+							<input
+								title = "Put the end date."
+								placeholder = "End date"
+								type = "date"
+								id = "edate"
+							/>
+						</div><br/>
+						<!--Time-->
+						<div>
+							<!--Label-->
+							<span>Duration:</span><br/>
+							<!--Input-->
+							<input
+								title = "Specify the duration of the contract."
+								placeholder = "Contract length"
+								type = "number"
+								id = "time"
+								value = '0'
+								min = '0'
+							/>
 						</div>
-						<!--Stop contract button-->
+						<!--Override contrat button-->
 						<button
-							title = "Terminate this employee's contract."
-							id = "stop-contract-btn"
+							title = "Renew this contract."
+							id = "override-contract-btn"
 						>
-							Stop this contract
+							Renew
 						</button>
 					</div>
-					<!--Dilusion-->
+					<!--Delusion-->
 					<div class = "empty-section"></div>
 				</div>
 			</div>
 		</div>
 		<!--External dependencies-->
 		<script
+			src = "./sources/widgets/msgbox.js"
 			type = "text/javascript"
-			src = "./js/msgbox.js"
 		></script>
 		<script
+			src = "./sources/utils/jquery.js"
 			type = "text/javascript"
-			src = "./js/jquery.js"
 		></script>
 		<!--Custom dependencies-->
 		<script
-			src = "./js/basics_tools.js"
+			src = "./sources/utils/basics_tools.js"
 			type = "text/javascript"
 		></script>
 		<script
+			src = "./sources/utils/generic.js"
 			type = "text/javascript"
-			src = "./js/generic.js"
 		></script>
 		<!--Controller-->
 		<script
-			src = "./js/stop_contract.js"
+			src = "./sources/features/set_contract/override_contract.js"
 			type = "text/javascript"
 		></script>
 	</body>

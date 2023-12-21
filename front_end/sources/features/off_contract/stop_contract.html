@@ -1,31 +1,31 @@
 <!--
 	@project: Employees Contracts - https://employees-contracts-manager.onrender.com/
+	@fileoverview: The formulary to stop a contract.
 	@author: Obrymec - obrymecsprinces@gmail.com
-	@fileoverview: The offending employees.
-	@file: employees_mistake.html
+	@file: stop_contract.html
 	@created: 2022-02-03
-	@updated: 2023-12-17
+	@updated: 2023-12-21
 	@supported: DESKTOP
 	@version: 0.0.2
 -->
 
-<!--Global employees mistake page-->
+<!--Global stop contract page-->
 <html lang = "en" dir = "ltr">
-  <!--Employees contract page header-->
+	<!--Stop contract page header-->
 	<head>
 		<!--Title-->
-		<title>Offending employee(s)</title>
+		<title>Stop a contract</title>
 		<!--Loading the page style-->
 		<link
-			href = "./css/variables.css"
+			href = "./public/variables.css"
 			rel = "stylesheet"
 		/>
 		<link
-			href = "./css/generic.css"
+			href = "./public/generic.css"
 			rel = "stylesheet"
 		/>
 		<link
-			href = "./css/msgbox.css"
+			href = "./public/msgbox.css"
 			rel = "stylesheet"
 		/>
 		<!--Defined page charset: UTF-8-->
@@ -36,12 +36,12 @@
 		/>
 		<!--App favicon-->
 		<link
-			href = "./favicon.ico"
+			href = "./public/favicon.ico"
 			rel = "shortcut icon"
 			type = "image/ico"
 		/>
 		<link
-			href = "./favicon.ico"
+			href = "./public/favicon.ico"
 			type = "image/ico"
 			rel = "icon	"
 		/>
@@ -105,7 +105,7 @@
 					<!--Stop contract option-->
 					<div
 						title = "Arrest a contract employee."
-						class = "stop-contract option"
+						class = "stop-contract option active"
 					>
 						<span>Stop a contract</span>
 					</div>
@@ -140,7 +140,7 @@
 					<!--Bad employees option-->
 					<div
 						title = "Consult the list of employee(s) at fault."
-						class = "bad-employees option active"
+						class = "bad-employees option"
 					>
 						<span>Offending employee(s)</span>
 					</div>
@@ -156,7 +156,7 @@
 						title = "View the fault(s) committed by a given employee."
 						class = "employee-mistakes option"
 					>
-						<span>Employee's fault</span>
+						<span>Employee's faults</span>
 					</div>
 					<!--Override contract option-->
 					<div
@@ -181,59 +181,62 @@
 				<!--Header title-->
 				<div class = "header-title">
 					<span>
-						<strong>Offending employee(s)</strong>
+						<strong>Stop a contract</strong>
 					</span>
 				</div>
 				<!--Page content-->
 				<div class = "page-content">
 					<!--UI controls container-->
 					<div class = "ui-controls">
-						<!--Table data container-->
-						<table class = "table-data">
-							<!--Table header-->
-							<thead class = "table-header">
-								<!--Id-->
-								<th><span>ID</span></th>
-								<!--Name-->
-								<th><span>Name</span></th>
-								<!--Surname(s)-->
-								<th><span>Surname(s)</span></th>
-							</thead>
-						</table>
-						<!--Refresh button-->
+						<!--Employees contract-->
+						<div>
+							<!--Label-->
+							<span>Contracted employee(s):</span><br/>
+							<!--Input-->
+							<select
+								title = "Select an employee."
+								id = "dropdown"
+							>
+								<!--The default option-->
+								<option value = "-1" selected>
+									None
+								</option>
+							</select>
+						</div>
+						<!--Stop contract button-->
 						<button
-							id = "employee-mistakes-btn"
-							title = "Refresh the page."
+							title = "Terminate this employee's contract."
+							id = "stop-contract-btn"
 						>
-							Refresh the page
+							Stop this contract
 						</button>
 					</div>
-					<!--Delusion-->
+					<!--Dilusion-->
 					<div class = "empty-section"></div>
 				</div>
 			</div>
 		</div>
 		<!--External dependencies-->
 		<script
+			src = "./sources/widgets/msgbox.js"
 			type = "text/javascript"
-			src = "./js/msgbox.js"
 		></script>
 		<script
+			src = "./sources/utils/jquery.js"
 			type = "text/javascript"
-			src = "./js/jquery.js"
 		></script>
 		<!--Custom dependencies-->
 		<script
-			src = "./js/basics_tools.js"
+			src = "./sources/utils/basics_tools.js"
 			type = "text/javascript"
 		></script>
 		<script
+			src = "./sources/utils/generic.js"
 			type = "text/javascript"
-			src = "./js/generic.js"
 		></script>
 		<!--Controller-->
 		<script
-			src = "./js/bad_employees.js"
+			src = "./sources/features/off_contract/stop_contract.js"
 			type = "text/javascript"
 		></script>
 	</body>

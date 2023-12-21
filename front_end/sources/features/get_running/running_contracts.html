@@ -1,31 +1,31 @@
 <!--
 	@project: Employees Contracts - https://employees-contracts-manager.onrender.com/
-	@fileoverview: The fromulary to create a contract.
+	@fileoverview: The contracts that are running.
 	@author: Obrymec - obrymecsprinces@gmail.com
-	@file: save_contracts.html
+	@file: running_contracts.html
 	@created: 2022-02-03
-	@updated: 2023-12-17
+	@updated: 2023-12-21
 	@supported: DESKTOP
 	@version: 0.0.2
 -->
 
-<!--Global save contract page-->
+<!--Global running contracts page-->
 <html lang = "en" dir = "ltr">
-	<!--Save contract page header-->
+	<!--Running contracts page header-->
 	<head>
 		<!--Title-->
-		<title>Save a contract</title>
+		<title>Current contract(s)</title>
 		<!--Loading the page style-->
 		<link
-			href = "./css/variables.css"
+			href = "./public/variables.css"
 			rel = "stylesheet"
 		/>
 		<link
-			href = "./css/generic.css"
+			href = "./public/generic.css"
 			rel = "stylesheet"
 		/>
 		<link
-			href = "./css/msgbox.css"
+			href = "./public/msgbox.css"
 			rel = "stylesheet"
 		/>
 		<!--Defined page charset: UTF-8-->
@@ -36,12 +36,12 @@
 		/>
 		<!--App favicon-->
 		<link
-			href = "./favicon.ico"
+			href = "./public/favicon.ico"
 			rel = "shortcut icon"
 			type = "image/ico"
 		/>
 		<link
-			href = "./favicon.ico"
+			href = "./public/favicon.ico"
 			type = "image/ico"
 			rel = "icon	"
 		/>
@@ -112,7 +112,7 @@
 					<!--Running contracts option-->
 					<div
 						title = "Consult the list of current contract(s)."
-						class = "running-contracts option"
+						class = "running-contracts option active"
 					>
 						<span>Current contract(s)</span>
 					</div>
@@ -125,8 +125,8 @@
 					</div>
 					<!--Adds a contract option-->
 					<div
-						class = "add-contract option active"
 						title = "Register a contract."
+						class = "add-contract option"
 					>
 						<span>Register a contract</span>
 					</div>
@@ -181,80 +181,38 @@
 				<!--Header title-->
 				<div class = "header-title">
 					<span>
-						<strong>Register a contract</strong>
+						<strong>Current contract(s)</strong>
 					</span>
 				</div>
 				<!--Page content-->
 				<div class = "page-content">
 					<!--UI controls container-->
 					<div class = "ui-controls">
-						<!--Employee name-->
-						<div>
-							<!--Label-->
-							<span>Employee name:</span><br/>
-							<!--Input-->
-							<input
-								title = "Give the employee's name."
-								placeholder = "Employee name"
-								type = "text"
-								id = "name"
-							/>
-						</div><br/>
-						<!--Employee surname(s)-->
-						<div>
-							<!--Label-->
-							<span>Employee surname(s):</span><br/>
-							<!--Input-->
-							<input
-								title = "Give the employee's first name(s)."
-								placeholder = "Employee surname"
-								id = "surname"
-								type = "text"
-							/>
-						</div><br/>
-						<!--Start date-->
-						<div>
-							<!--Label-->
-							<span>Hiring date:</span><br/>
-							<!--Input-->
-							<input
-								title = "Put the hiring date."
-								placeholder = "Hiring date"
-								type = "date"
-								id = "sdate"
-							/>
-						</div><br/>
-						<!--End date-->
-						<div>
-							<!--Label-->
-							<span>End date:</span><br/>
-							<!--Input-->
-							<input
-								title = "Give the end date."
-								placeholder = "End date"
-								type = "date"
-								id = "edate"
-							/>
-						</div><br/>
-						<!--Time-->
-						<div>
-							<!--Label-->
-							<span>Duration:</span><br/>
-							<!--Input-->
-							<input
-								title = "Specify the duration of the contract."
-								placeholder = "Contact duration"
-								type = "number"
-								id = "time"
-								value = '0'
-								min = '0'
-							/>
-						</div>
-						<!--Save contrat button-->
+						<!--Table data container-->
+						<table class = "table-data">
+							<!--Table header-->
+							<thead class = "table-header">
+								<!--Id-->
+								<th><span>ID</span></th>
+								<!--Name-->
+								<th><span>Name</span></th>
+								<!--Surname(s)-->
+								<th><span>Surname(s)</span></th>
+								<!--Start date-->
+								<th><span>Hiring date</span></th>
+								<!--End date-->
+								<th><span>End date</span></th>
+								<!--Time-->
+								<th><span>Duration</span></th>
+							</thead>
+						</table>
+						<!--Refresh button-->
 						<button
-							title = "Save this contract."
-							id = "save-contract-btn"
-						>Save</button>
+							id = "employee-mistakes-btn"
+							title = "Refresh the page."
+						>
+							Refresh the page
+						</button>
 					</div>
 					<!--Delusion-->
 					<div class = "empty-section"></div>
@@ -263,25 +221,25 @@
 		</div>
 		<!--External dependencies-->
 		<script
+			src = "./sources/widgets/msgbox.js"
 			type = "text/javascript"
-			src = "./js/msgbox.js"
 		></script>
 		<script
+			src = "./sources/utils/jquery.js"
 			type = "text/javascript"
-			src = "./js/jquery.js"
 		></script>
 		<!--Custom dependencies-->
 		<script
-			src = "./js/basics_tools.js"
+			src = "./sources/utils/basics_tools.js"
 			type = "text/javascript"
 		></script>
 		<script
+			src = "./sources/utils/generic.js"
 			type = "text/javascript"
-			src = "./js/generic.js"
 		></script>
 		<!--Controller-->
 		<script
-			src = "./js/add_contract.js"
+			src = "./sources/features/get_running/running_contracts.js"
 			type = "text/javascript"
 		></script>
 	</body>
