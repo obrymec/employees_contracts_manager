@@ -3,7 +3,7 @@
 * @fileoverview: The main stylesheet of application.
 * @author: Obrymec - obrymecsprinces@gmail.com
 * @created: 2022-02-03
-* @updated: 2023-12-17
+* @updated: 2023-12-22
 * @supported: DESKTOP
 * @file: sign.css
 * @version: 0.0.3
@@ -11,7 +11,7 @@
 
 /* Button hover */
 button:hover {
-  background-color: var(--primary-color);
+  background-color: var(--primary-color-300);
 }
 
 /* Inputs focus */
