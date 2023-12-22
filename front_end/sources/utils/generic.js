@@ -3,7 +3,7 @@
 * @fileoverview The base controller for all others controllers.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @created 2022-02-03
-* @updated 2023-12-21
+* @updated 2023-12-22
 * @supported DESKTOP
 * @file generic.js
 * @version 0.0.3
@@ -76,7 +76,7 @@ function sweetAlert (
 	confirm = () => {},
 	showConfirm = true,
 	title = "Server Message",
-	outsideClick = true
+	outsideClick = false
 ) {
 	// Displays the target
 	// message text inside
@@ -141,6 +141,43 @@ function generate_employee_table_data (
 }
 
 /**
+ * @description Checks whether the
+ * 	browser is online or not.
+ * @function checkNetwork
+ * @public
+ * @returns {boolean} boolean
+ */
+function checkNetwork () {
+	// Whether the browser
+	// is online.
+	const isOnLine = (
+		window.navigator.onLine
+	);
+	// Whether the browser
+	// is offline.
+	if (!isOnLine) {
+		// Shows an error message
+		// about no internet
+		// connection.
+		sweetAlert (
+			`The browser isn't connected 
+				to internet. Check your 
+				network and retry.`,
+			 "error", () => {}, true,
+			 "Network Error"
+		);
+	// Otherwise.
+	} else {
+		// Closes the active
+		// modal box.
+		Swal.close ();
+	}
+	// Sends the network
+	// state.
+	return isOnLine;
+}
+
+/**
  * @description Checks screen active
  * 	resolution.
  * @function checkScreenResolution
@@ -151,9 +188,7 @@ function checkScreenResolution () {
 	// Whether the current
 	// window size is less
 	// than 1024.
-	if (
-		window.innerWidth < 1024
-	) {
+	if (window.innerWidth < 1024) {
 		// Whether the screen size
 		// wasn't low.
 		if (!is_low) {
@@ -168,7 +203,7 @@ function checkScreenResolution () {
 				 bigger than or equal to
 				 (1024 x 768) pixels.`,
 				 "info", () => {}, false,
-				 "Information", false
+				 "Information"
 			);
 		}
 	// Otherwise.
@@ -195,45 +230,49 @@ function checkScreenResolution () {
  * @returns {void} void 
  */
 function get_request (data) {
-	// Downloads data from
-	// server with the
-	// passed front-end
-	// data.
-	ajax_request_nodejs (
-		`/${data.operation_link}`,
-		"GET", {}, response => {
-			// Whether the server
-			// status is `500`.
-			if (response.status === 500) {
+	// Whether the browser
+	// is really online.
+	if (checkNetwork ()) {
+		// Downloads data from
+		// server with the
+		// passed front-end
+		// data.
+		ajax_request_nodejs (
+			`/${data.operation_link}`,
+			"GET", {}, response => {
+				// Whether the server
+				// status is `500`.
+				if (response.status === 500) {
+					// Makes a warn.
+					sweetAlert (
+						response.message,
+						"error", () => (
+							window.location.reload ()
+						)
+					);
+				// Otherwise.
+				} else {
+					// Generating the associated
+					// html code from server's
+					// data.
+					response.data.forEach (
+						item => data.callback (
+							item
+						)
+					);
+				}
+			// Request failed.
+			}, () => {
 				// Makes a warn.
 				sweetAlert (
-					response.message,
+					"Request failed. Try Again !",
 					"error", () => (
 						window.location.reload ()
 					)
 				);
-			// Otherwise.
-			} else {
-				// Generating the associated
-				// html code from server's
-				// data.
-				response.data.forEach (
-					item => data.callback (
-						item
-					)
-				);
 			}
-		// Request failed.
-		}, () => {
-			// Makes a warn.
-			sweetAlert (
-				"Request failed. Try Again !",
-				"error", () => (
-					window.location.reload ()
-				)
-			);
-		}
-	);
+		);
+	}
 }
 
 /**
@@ -410,155 +449,159 @@ function date_difference () {
  * @returns {void} void
  */
 function post_request (data, is_sign) {
-	// Whether the user is
-	// already connected.
-	if (is_sign) {
-		// Whether the user
-		// isn't connected.
-		if (
+	// Whether the browser
+	// is really online.
+	if (checkNetwork ()) {
+		// Whether the user is
+		// already connected.
+		if (is_sign) {
+			// Whether the user
+			// isn't connected.
+			if (
+				String (
+					get_cookie ("user")
+				) !== "undefined"
+			) {
+				// Disables the main
+				// button.
+				is_pressed = true;
+				// Redirecting to
+				// stop contract
+				// web page.
+				window.location.href = (
+					`${HOST_NAME}/stop-contract`
+				);
+			}
+		// Otherwise.
+		} else if (
 			String (
 				get_cookie ("user")
-			) !== "undefined"
+			) === "undefined"
 		) {
 			// Disables the main
 			// button.
 			is_pressed = true;
 			// Redirecting to
-			// stop contract
-			// web page.
+			// sign web page.
 			window.location.href = (
-				`${HOST_NAME}/stop-contract`
+				HOST_NAME
 			);
 		}
-	// Otherwise.
-	} else if (
-		String (
-			get_cookie ("user")
-		) === "undefined"
-	) {
-		// Disables the main
-		// button.
-		is_pressed = true;
-		// Redirecting to
-		// sign web page.
-		window.location.href = (
-			HOST_NAME
-		);
-	}
-	// Whether the button
-	// is not pressed.
-	if (!is_pressed) {
-		// Disables it.
-		is_pressed = true;
-		// Gets his old
-		// text value.
-		let old_button_text = (
-			$ (data.button_id).text ()
-		);
-		// Changes button
-		// text message.
-		$ (data.button_id).text (
-			data.button_text
-		);
-		// Sends the given data
-		// to server with ajax
-		// method.
-		ajax_request_nodejs (
-			`/${data.operation_link}`,
-			"POST", data.server_data,
-			response => {
-				// Whether the server
-				// status is `500`.
-				if (
-					response.status === 500
-				) {
-					// Enables button.
-					is_pressed = false;
-					// Makes a warn.
-					sweetAlert (
-						response.message,
-						"error", () => (
-							$ (data.button_id)
-								.text (
-									old_button_text
-								)
-						)
-					);
-				// Otherwise.
-				} else {
-					// Enables button.
-					is_pressed = false;
-					// Changes button
-					// apprearance.
-					$ (data.button_id).text (
-						old_button_text
-					);
-					// Whether no message key
-					// is found.
+		// Whether the button
+		// is not pressed.
+		if (!is_pressed) {
+			// Disables it.
+			is_pressed = true;
+			// Gets his old
+			// text value.
+			let old_button_text = (
+				$ (data.button_id).text ()
+			);
+			// Changes button
+			// text message.
+			$ (data.button_id).text (
+				data.button_text
+			);
+			// Sends the given data
+			// to server with ajax
+			// method.
+			ajax_request_nodejs (
+				`/${data.operation_link}`,
+				"POST", data.server_data,
+				response => {
+					// Whether the server
+					// status is `500`.
 					if (
-						response.hasOwnProperty (
-							"data"
-						)
+						response.status === 500
 					) {
-						// Calls the passed
-						// method callback.
-						response.data.forEach (
-							item => data.callback (
-								item
+						// Enables button.
+						is_pressed = false;
+						// Makes a warn.
+						sweetAlert (
+							response.message,
+							"error", () => (
+								$ (data.button_id)
+									.text (
+										old_button_text
+									)
 							)
 						);
 					// Otherwise.
 					} else {
-						// Warns the user and calls
-						// `loaded` method when
-						// this request is done.
-						sweetAlert (
-							response.message,
-							"success", () => {
-								// Whether `loaded` event
-								// is listening.
-								if (
-									typeof data.loaded
-										=== "function"
-								) {
-									// Calls it.
-									data.loaded (response);
-								}
-								// Whether the request
-								// link is defined.
-								if (
-									data.hasOwnProperty (
-										"page_link"
-									) &&
-									data.page_link.length > 0
-								) {		
-									// Go to a web page
-									// whether needed.
-									window.location.href = (
-										`${HOST_NAME}/${
-											data.page_link
-										}`
-									);
-								}
-							}
-						);
-					}
-				}
-			// Request failed.
-			}, () => {
-				// Enables the button.
-				is_pressed = false;
-				// Makes a warn.
-				sweetAlert (
-					"Request failed. Try Again !",
-					"error", () => (
+						// Enables button.
+						is_pressed = false;
+						// Changes button
+						// apprearance.
 						$ (data.button_id).text (
 							old_button_text
+						);
+						// Whether no message key
+						// is found.
+						if (
+							response.hasOwnProperty (
+								"data"
+							)
+						) {
+							// Calls the passed
+							// method callback.
+							response.data.forEach (
+								item => data.callback (
+									item
+								)
+							);
+						// Otherwise.
+						} else {
+							// Warns the user and calls
+							// `loaded` method when
+							// this request is done.
+							sweetAlert (
+								response.message,
+								"success", () => {
+									// Whether `loaded` event
+									// is listening.
+									if (
+										typeof data.loaded
+											=== "function"
+									) {
+										// Calls it.
+										data.loaded (response);
+									}
+									// Whether the request
+									// link is defined.
+									if (
+										data.hasOwnProperty (
+											"page_link"
+										) &&
+										data.page_link.length > 0
+									) {		
+										// Go to a web page
+										// whether needed.
+										window.location.href = (
+											`${HOST_NAME}/${
+												data.page_link
+											}`
+										);
+									}
+								}
+							);
+						}
+					}
+				// Request failed.
+				}, () => {
+					// Enables the button.
+					is_pressed = false;
+					// Makes a warn.
+					sweetAlert (
+						"Request failed. Try Again !",
+						"error", () => (
+							$ (data.button_id).text (
+								old_button_text
+							)
 						)
-					)
-				);
-			}
-		);
+					);
+				}
+			);
+		}
 	}
 }
 
@@ -571,6 +614,16 @@ $ (() => {
 	window.addEventListener (
 		"resize", checkScreenResolution
 	);
+	// Listens browser `offline`
+  // event.
+  window.addEventListener (
+    "offline", checkNetwork
+  );
+	// Listens browser `online`
+  // event.
+  window.addEventListener (
+    "online", checkNetwork
+  );
 	// Listens `click` event
 	// on all detected
 	// refresh buttons.

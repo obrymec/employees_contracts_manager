@@ -3,7 +3,7 @@
 * @fileoverview: The main stylesheet of application.
 * @author: Obrymec - obrymecsprinces@gmail.com
 * @created: 2022-02-03
-* @updated: 2023-12-17
+* @updated: 2023-12-21
 * @supported: DESKTOP
 * @file: generic.css
 * @version: 0.0.3
@@ -14,8 +14,13 @@ div.active {
 	background-color: var(--primary-color) !important;
 }
 
-/* Button hover and table header */
-thead.table-header, button:hover {
+/* Button hover */
+button:hover {
+	background-color: var(--primary-color-300);
+}
+
+/* Table header */
+thead.table-header {
 	background-color: var(--primary-color);
 }
 
@@ -29,8 +34,8 @@ tbody.light-silver {
   background-color: var(--light-white);
 }
 
-/* Inputs focus */
-input:focus, select:focus {
+/* Input focus */
+input:focus {
 	border-color: var(--primary-color);
 }
 
@@ -68,6 +73,12 @@ div.ui-controls {
 div.empty-section {
 	background-color: var(--silver-500);
 	height: 100%;
+}
+
+/* Select hover */
+select:hover {
+	border-color: var(--primary-color);
+	cursor: pointer;
 }
 
 /* Inputs placeholder */

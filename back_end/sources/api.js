@@ -4,7 +4,7 @@
 * @author Obrymec - obrymecsprinces@gmail.com
 * @file controller.js
 * @created 2022-02-03
-* @updated 2023-12-16
+* @updated 2023-12-22
 * @supported DESKTOP
 * @version 0.0.2
 */
@@ -50,7 +50,8 @@ module.exports.get_expired_contracts = (
 			result ({
 				status: 500,
 				message: `
-					Request failed.
+					Request failed. Unable to
+					get expired contracts.
 					Try Again !
 				`
 			});
@@ -87,7 +88,8 @@ module.exports.get_running_contracts = (
 			result ({
 				status: 500,
 				message: `
-					Request failed.
+					Request failed. Unable to
+					get running contracts.
 					Try Again !
 				`
 			});
@@ -176,8 +178,9 @@ module.exports.get_bad_employees = (
 				result ({
 					status: 500,
 					message: `
-						Request failed.
-						Try Again !"
+						Request failed. Unable to
+						get offending employees.
+						Try Again !
 					`
 				});
 			// Otherwise.
@@ -252,7 +255,8 @@ module.exports.get_employee_mistakes = (
 						result ({
 							status: 500,
 							message: `
-								Request failed.
+								Request failed. Unable to
+								get employee's misconducts
 								Try Again !
 							`
 						});
@@ -380,8 +384,8 @@ module.exports.stop_contract = (
 		result ({
 			status: 500,
 			message: `
-				Request failed.
-				Try Again !
+				No employee has
+				been chosen.
 			`
 		});
 	// Otherwise.
@@ -403,7 +407,8 @@ module.exports.stop_contract = (
 				result ({
 					status: 500,
 					message: `
-						Request failed.
+						Request failed. Unable
+						to stop this contract.
 						Try Again !
 					`
 				});
@@ -424,7 +429,8 @@ module.exports.stop_contract = (
 						result ({
 							status: 500,
 							message: `
-								Request failed.
+								Request failed. Unable
+								to stop this contract.
 								Try Again !
 							`
 						});
@@ -437,7 +443,7 @@ module.exports.stop_contract = (
 							message: `
 								The contract was
 								successfully
-								terminated.
+								stoped.
 							`
 						});
 					}
@@ -509,7 +515,8 @@ module.exports.save_mistake = (
 					result ({
 						status: 500,
 						message: `
-							Request failed.
+							Request failed. Unable
+							to save this mistake.
 							Try Again !
 						`
 					});
@@ -521,8 +528,7 @@ module.exports.save_mistake = (
 						status: 200,
 						message: `
 							Fault registration
-							completed
-							successfully !
+							completed successfully !
 						`
 					});
 				}
@@ -592,7 +598,7 @@ module.exports.sign_in = (
 					result ({
 						status: 500,
 						message: `
-							Request failed.
+							Something wrong.
 							Try Again !
 						`
 					});
@@ -660,7 +666,7 @@ module.exports.override_contract = (
 			status: 500,
 			message: `
 				Some field(s)
-				are empty."
+				are empty.
 			`
 		});
 	// Otherwise.
@@ -712,7 +718,8 @@ module.exports.override_contract = (
 					result ({
 						status: 500,
 						message: `
-							Request failed.
+							Request failed. Unable to
+							override this contract.
 							Try Again !
 						`
 					});
@@ -807,7 +814,7 @@ module.exports.save_contract = (
 					result ({
 						status: 500,
 						message: `
-							Request failed.
+							Something wrong.
 							Try Again !
 						`
 					});
@@ -822,7 +829,7 @@ module.exports.save_contract = (
 							status: 500,
 							message: `
 								This employee is
-								already under
+								already under a
 								contract.
 							`
 						});
@@ -857,7 +864,8 @@ module.exports.save_contract = (
 								result ({
 									status: 500,
 									message: `
-										Request failed.
+										Request failed. Unable
+										to save this contract.
 										Try Again !
 									`
 								});
@@ -909,7 +917,21 @@ module.exports.sign_up = (
 			status: 500,
 			message: `
 				Some field(s)
-				are empty."
+				are empty.
+			`
+		});
+	// Whether the given
+	// username is invalid.
+	} else if (
+		!/^[a-zA-Z0-9_ïèéêûÊÉÈÏÛÇçæÆŒœ\.\-]*$/
+			.test (data.username)
+	) {
+		// Sends an error message.
+		result ({
+			status: 500,
+			message: `
+				The given username
+				is invalid.
 			`
 		});
 	// Whether the passed email
@@ -928,8 +950,23 @@ module.exports.sign_up = (
 				is invalid.
 			`
 		});
-	// Whether the password is
-	// not valid.
+	// Whether the password
+	// length is less than
+	// height (08).
+	} else if (
+		data.password.length < 8
+	) {
+		// Sends an error
+		// message.
+		result ({
+			status: 500,
+			message: `
+				The password must have
+				least (08) characters.
+			`
+		});
+	// Whether the passwords
+	// aren't a match.
 	} else if (
 		data.password.length !==
 		data.confirm.length
@@ -968,7 +1005,7 @@ module.exports.sign_up = (
 				result ({
 					status: 500,
 					message: `
-						Request failed.
+						Something wrong.
 						Try Again !
 					`
 				});
@@ -1015,8 +1052,9 @@ module.exports.sign_up = (
 							result ({
 								status: 500,
 								message: `
-									Request failed.
-									Try Again !
+									Request failed. We have
+									some difficulties to
+									sign up you. Try Again !
 								`
 							});
 						// Otherwise.
