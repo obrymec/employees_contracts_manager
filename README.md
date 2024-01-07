@@ -4,7 +4,7 @@
 ![Web Application](https://img.shields.io/badge/web%20application-233B4D?style=for-the-badge)
 ![Pwa](https://img.shields.io/badge/pwa-7D4698.svg?style=for-the-badge)
 
-This small project is academic. It was developed with Native Web Development
+This small project is academic. It has been developed with Native Web Development
 Languages. The project is subdivided in two parts such as: Front-end and
 Back-end. In Front-end, I've built all user interfaces using basic HTML and
 CSS to draw layouts, controls and JavaScript to make some feedback with users
@@ -29,7 +29,7 @@ Sometime, a page reloading is required to make certain HTTP requests.
 
 ## Access link <a id = "link"></a>
 The project is already hosted on web and can be
-accessible through one of these links below :
+accessible through the link below :
 - https://employees-contracts-manager.onrender.com
 
 ## Reference <a id = "ref"></a>
