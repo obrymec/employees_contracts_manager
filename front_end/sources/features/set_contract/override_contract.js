@@ -1,5 +1,5 @@
 /**
-* @project Employees Contracts - https://employees-contracts-manager.onrender.com/
+* @project Employees Contracts - https://employees-contracts-manager.onrender.com
 * @fileoverview The controller to override an employee's contract.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @file override_contract.js

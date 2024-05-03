@@ -1,5 +1,5 @@
 /**
-* @project Employees Contracts - https://employees-contracts-manager.onrender.com/
+* @project Employees Contracts - https://employees-contracts-manager.onrender.com
 * @fileoverview The base controller for all others controllers.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @created 2022-02-03

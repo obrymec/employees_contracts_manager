@@ -1,9 +1,9 @@
 /**
-* @project Employees Contracts - https://employees-contracts-manager.onrender.com/
+* @project Employees Contracts - https://employees-contracts-manager.onrender.com
 * @fileoverview Defines routes, paths and nodejs server configs with expressjs.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @created 2022-02-03
-* @updated 2023-12-21
+* @updated 2024-05-03
 * @supported DESKTOP
 * @file server.js
 * @version 0.0.2
@@ -18,9 +18,7 @@ const express = require ("express");
 const app = express ();
 const port = 5200;
 const options = {
-	root: (
-		`${__dirname}/front_end`
-	)
+	root: `${__dirname}/front_end`
 };
 
 // App configurations.
@@ -249,22 +247,15 @@ app.post (
 
 // Starts the server.
 app.listen (port, err => {
-	// Whether an error
-  // is thrown.
+	// Whether an error is thrown.
 	if (err) {
-		// Displays this
-    // error message.
-		console.error (
-			"Server Error: ", err
-		);
+		// Displays this error message.
+		console.error ("Server Error: ", err);
 	// Otherwise.
 	} else {
-		// Makes a warn
-    // about server
-    // starting.
+		// Makes a warn about server starting.
 		console.log (
-			"Server started at port: ",
-			port
+			"Server started at port: ", port
 		);
 	}
 });

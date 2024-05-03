@@ -1,5 +1,5 @@
 /**
-* @project Employees Contracts - https://employees-contracts-manager.onrender.com/
+* @project Employees Contracts - https://employees-contracts-manager.onrender.com
 * @fileoverview The back-end module to send a gmail.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @file mail_sender.js

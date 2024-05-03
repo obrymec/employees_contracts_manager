@@ -1,5 +1,5 @@
 /**
-* @project Employees Contracts - https://employees-contracts-manager.onrender.com/
+* @project Employees Contracts - https://employees-contracts-manager.onrender.com
 * @fileoverview The controller to fetch all employees that are a misconduct.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @file bad_employees.js

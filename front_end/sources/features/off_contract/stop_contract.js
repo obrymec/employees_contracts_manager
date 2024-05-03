@@ -1,5 +1,5 @@
 /**
-* @project Employees Contracts - https://employees-contracts-manager.onrender.com/
+* @project Employees Contracts - https://employees-contracts-manager.onrender.com
 * @fileoverview The controller to stop a specific employee's contract.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @file stop_contracts.js

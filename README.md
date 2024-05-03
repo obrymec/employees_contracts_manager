@@ -42,10 +42,10 @@ This is the final result of the project :
 [![Watch the project's video](https://img.youtube.com/vi/MCtNSq67pv8/maxresdefault.jpg)](https://youtu.be/MCtNSq67pv8)
 
 ### Screenshots <a id = "images"></a>
-![First render](./front_end/assets/render/render_1.png)
-![Second render](./front_end/assets/render/render_2.png)
-![Third render](./front_end/assets/render/render_3.png)
-![Fourth render](./front_end/assets/render/render_4.png)
+![First render](./front_end/public/assets/render/render_1.png)
+![Second render](./front_end/public/assets/render/render_2.png)
+![Third render](./front_end/public/assets/render/render_3.png)
+![Fourth render](./front_end/public/assets/render/render_4.png)
 
 ## Project installation <a id = "install"></a>
 👉 If you want to get project sources code, make sure

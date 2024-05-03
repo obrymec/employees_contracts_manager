@@ -1,5 +1,5 @@
 /**
-* @project Employees Contracts - https://employees-contracts-manager.onrender.com/
+* @project Employees Contracts - https://employees-contracts-manager.onrender.com
 * @fileoverview The base module for all features in front-end.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @file basics_tools.js

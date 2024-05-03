@@ -1,5 +1,5 @@
 /**
-* @project Employees Contracts - https://employees-contracts-manager.onrender.com/
+* @project Employees Contracts - https://employees-contracts-manager.onrender.com
 * @fileoverview The controller to fetch expired contracts.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @file expired_contracts.js

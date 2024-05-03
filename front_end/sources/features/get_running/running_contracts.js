@@ -1,5 +1,5 @@
 /**
-* @project Employees Contracts - https://employees-contracts-manager.onrender.com/
+* @project Employees Contracts - https://employees-contracts-manager.onrender.com
 * @fileoverview The controller to fetch all running contracts.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @file running_contracts.js

@@ -1,5 +1,5 @@
 /**
-* @project Employees Contracts - https://employees-contracts-manager.onrender.com/
+* @project Employees Contracts - https://employees-contracts-manager.onrender.com
 * @fileoverview The controller to handle user sign in/up.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @created 2022-02-03

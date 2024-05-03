@@ -1,5 +1,5 @@
 /**
-* @project Employees Contracts - https://employees-contracts-manager.onrender.com/
+* @project Employees Contracts - https://employees-contracts-manager.onrender.com
 * @fileoverview The back-end controller to manage the client requests.
 * @author Obrymec - obrymecsprinces@gmail.com
 * @file controller.js
