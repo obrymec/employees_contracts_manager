@@ -4,7 +4,7 @@
   "author": "Obrymec - obrymecsprinces@gmail.com",
   "name": "employees-contracts-manager",
   "main": "./server.js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": "false",
   "license": "MIT",
   "bugs": {
