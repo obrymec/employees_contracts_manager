@@ -1,7 +1,7 @@
 # Employees Contracts Manager
 ![Employees Contracts Manager](https://img.shields.io/badge/employees%20contracts%20manager-1997B5.svg?style=for-the-badge)
 ![Full Stack Development](https://img.shields.io/badge/full%20stack%20development-FF5722.svg?style=for-the-badge)
-![Progressive Web App](https://img.shields.io/badge/progressive%20%web%20app-7D4698.svg?style=for-the-badge)
+![Progressive Web App](https://img.shields.io/badge/progressive%20web%20app-7D4698.svg?style=for-the-badge)
 ![Contracts Management](https://img.shields.io/badge/contracts%20management-233B4D?style=for-the-badge)
 
 This small project is academic. It has been developed with Native Web Development
