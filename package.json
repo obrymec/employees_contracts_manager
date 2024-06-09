@@ -1,6 +1,6 @@
 {
 	"homepage": "https://github.com/obrymec/employees_contracts_manager#readme",
-  "description": "A simple web app for employees contracts management.",
+  "description": "Employees contracts management.",
   "author": "Obrymec - obrymecsprinces@gmail.com",
   "name": "employees-contracts-manager",
   "main": "./server.js",
