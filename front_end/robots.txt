@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /public/assets/logos/
+Disallow: /public/stylesheets/
+Disallow: /sources/components/
+Disallow: /sources/utils/
